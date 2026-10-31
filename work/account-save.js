@@ -3,7 +3,7 @@
 const keys=['neonNullProgression','neonNullMissionScrap','neonNullAccessibility','neonNullCreativeInfiniteScrap','neonNullFastReveal'];
 const read=(key,fallback=null)=>{try{return localStorage.getItem(key)??fallback}catch{return fallback}};
 const parse=(value,fallback)=>{try{return JSON.parse(value)??fallback}catch{return fallback}};
-let config=parse(read('nn.cloud.config'),{}),session=null;
+const clientDefaults={url:'https://mjhhulyyfcoshnsudcim.supabase.co',key:'sb_publishable_453H0Orq2mPPgXYdszPWFg_loq8QvE9'};let config=parse(read('nn.cloud.config'),{}),session=null;if(!config.url||!config.key)config=clientDefaults;
 const savedEmail=read('nn.remembered.email','');
 try{session=JSON.parse(localStorage.getItem('nn.remembered.session')||'null')}catch{}
 if(!session)try{session=JSON.parse(sessionStorage.getItem('nn.session')||'null')}catch{}
