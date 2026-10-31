@@ -1,6 +1,6 @@
 # NEON//NULL v3.25: accounts and saves
 
-Local saves work immediately. Real cloud accounts are implemented but will not connect until you configure your own Supabase project. No hosted project was created or deployed by this update.
+The current release includes this project’s public Supabase URL and publishable key, so new players can create accounts without entering Cloud setup. The setup instructions below apply when configuring a different project. Private server keys are never included in the HTML.
 
 ## Configure the service
 

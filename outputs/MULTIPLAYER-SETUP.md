@@ -1,59 +1,38 @@
-> Version 4.5: single-player Endless now banks its entire remaining run-scrap balance on defeat, without the old score/time cap. Online co-op retains the server reward curve below.
+# NEON//NULL 5.0 — multiplayer setup
 
-# NEON//NULL 4.0 — multiplayer and update guide
+Deploy the extracted release bundle contents. The Node server prefers root index.html, the same entry GitHub Pages uses, and falls back to outputs/neon-null.html.
 
-This update includes a real authoritative Node.js server and a network client. It has been tested over local HTTP with four protocol clients and two browser pages. It is not deployed to a public host. Supabase authenticates accounts and stores saves; the Node server runs combat. Supabase alone cannot host this match loop.
+## Local testing
 
-## Try local multiplayer
-
-Requires Node.js 22 or newer. There are no npm dependencies to install. From the project folder, run in PowerShell:
+Node 22+ is required; there are no npm dependencies. In PowerShell from the project root:
 
 ```powershell
 $env:DEV_GUESTS = 'true'
 node multiplayer/server.cjs
 ```
 
-Open `http://localhost:8787` in two tabs. In each tab choose Play Offline → Multiplayer, expand Server connection and give yourself a different local test name. Create a lobby in one tab and join its code in the other. Both players click Ready; the leader clicks Start Match. Development guests are explicitly unranked and never receive banked multiplayer currency. This mode binds to localhost only.
+Open http://localhost:8787 in 2–4 browser windows. Choose Play Offline → Multiplayer. Under Server connection, select different local test names. One player creates a lobby and shares its code. Choose loadouts, mark Ready and the leader starts. Development guests bind to localhost and never earn rewards.
 
-## Real accounts and players on different devices
+## Internet hosting
 
-1. Use your existing Supabase project and run the base save and username SQL if you have not already. Existing accounts and saves remain valid.
-2. Copy `multiplayer/.env.example` to `multiplayer/.env`. Fill in your project URL and publishable key. Leave `DEV_GUESTS=false`.
-3. From the project folder, start with `node --env-file=multiplayer/.env multiplayer/server.cjs`.
-4. For Internet play, deploy the **whole project folder** to a Node web-service host. Start command: `node multiplayer/server.cjs`. Set the same environment variables privately on that host. The host must support persistent HTTP streaming, a single long-running Node process and HTTPS. Configure its health check to `/health`. The service serves the game itself at `/`.
-5. Open the service's HTTPS URL on each device. Configure Accounts & Saves with the same Supabase project, sign in with a confirmed account, and choose a username. In Multiplayer the server URL defaults to that same website origin.
-6. Create a room and share its six-character code. All party members must run version 4.0. The first release supports **cooperative Endless**, with all 46 existing equipment choices available equally in its lobby. Campaign missions remain single-player. No public matchmaking, PvP or chat is included.
+Use a Node web service with Node 22+, Build Command `true`, Start Command `node multiplayer/server.cjs`, Health Check `/health`. Keep one instance: rooms live in process memory, and a restart ends active matches. Proxies must support persistent HTTP streaming without buffering /api/events.
 
-Configure Supabase's Site URL/confirmation redirects for your hosted game URL. Moving from a local file to a website creates a different browser-storage origin: export a guest backup before moving, or sign in and sync your cloud account. The original file remains usable for single-player.
+Retain the existing server environment variables for the Supabase project URL and publishable key, with DEV_GUESTS=false. The HTML includes this project's public client defaults, so friends do not need to paste keys. For another project, change the client defaults in work/account-save.js and rebuild. The public-config endpoint returns only a validated public configuration, never a private key.
 
-Host with **one instance**, not autoscaling multiple independent copies: active rooms live in that process. A process restart ends active matches with a connection message. A database alone does not restore a running simulation. Reverse proxies must disable response buffering for `/api/events` and allow persistent streams. Browser inputs use HTTP POST; snapshots stream at 15 Hz, simulation runs at 30 Hz, and graphics render independently.
+Open the host's HTTPS game URL on each device. Set Supabase Authentication → URL Configuration → Site URL to that address and allow confirmation redirects. Players need confirmed email accounts and usernames. Protocol 5.0 clients and server must be updated together.
 
-## Banked co-op rewards (optional)
+For a GitHub Pages client connecting to Render, set ALLOWED_ORIGINS=https://logicaldevil.github.io (no path), and enter the Render HTTPS URL under Multiplayer → Server connection. Opening the game directly on Render is simpler. Moving domains changes browser storage; sync cloud accounts or export guest backups first.
 
-1. Open `supabase-multiplayer.sql` in this outputs folder, copy **all its contents**, paste them into a new Supabase SQL Editor query, and click Run. Do not paste the filename.
-2. Put the project's legacy **service_role** key into the server's private `SUPABASE_SERVICE_ROLE_KEY` environment variable. It belongs only on your server; never put it in the HTML, a message, or the game's public-key field. This server currently expects the service-role JWT for server reward inserts.
-3. Use a persistent writable disk for `multiplayer/reward-outbox.json`. The server saves earned rewards before attempting cloud delivery and retries delivery every 30 seconds. The database's `(run_id,user_id)` key prevents duplicate awards. Back up this file before changing hosts.
-4. After a ranked match, choose **Bank Rewards & Return**, or use **Accounts & Saves → Claim Co-op Rewards**. If cloud delivery is still pending, retry shortly. The claim updates the cloud save atomically and asks you to resolve any existing save conflict first.
+## Optional ranked rewards
 
-Without the private reward key, account-authenticated co-op still works but is unranked. Production authentication calls Supabase to verify the access token, loads the username from its owner-protected profile, and never trusts a client-supplied identity, damage value, score or scrap amount. Save files remain editable single-player data; this is not a competitive anti-cheat economy.
+Authenticated co-op works without a private reward key, but remains unranked. Banked rewards require the previously supplied reward SQL and private server configuration. Keep all private keys out of HTML and GitHub. Persist and back up multiplayer/reward-outbox.json before redeploying. Unique run/user IDs and the existing atomic claim function prevent duplicate awards. Claim through Bank Rewards & Return or Accounts & Saves after delivery; resolve cloud conflicts first.
 
-## Combat, connection and rewards rules
+Co-op awards zero before 60 seconds, otherwise min(120, floor(score/250), floor(seconds/30)*8), once per run to eligible players connected at the end with 60 seconds presence. Single-player Endless retains its separate unspent-scrap payout. Creative, Practice, legacy and development guests do not award co-op currency.
 
-- 2–4 players; friendly fire off. Shared score and waves; pickups go to the first eligible nearby player. Healing pickups repair exactly one hull. A downed teammate can be revived by holding **V** nearby for two seconds, restoring four hull. All available teammates down means shared defeat. Bosses return every five waves and use five warning-based attack patterns.
-- Controls: WASD/arrows, LMB, slots 1–4/wheel, Q dash, R reload. Space opens a personal menu and releases inputs; it does **not** pause the server. Settings work during online play, and online combat continues. The first network release is designed for keyboard and mouse; existing single-player touch/controller support remains available.
-- Network interruptions show a 20-second reconnect window. Stale input expires in half a second. Disconnected players do not fire, take damage, or earn new match rewards. Empty rooms are cleaned up. Leadership transfers when the former leader leaves or expires. Mid-run newcomers wait for the next lobby; returning participants receive a complete snapshot.
-- Ordinary Endless and co-op use the same reward curve: zero under 60 seconds; otherwise `min(120, floor(score/250), floor(seconds/30)*8)`. Rewards are paid after defeat, once per run. Returning to the menu early forfeits the ordinary Endless payout. Co-op rewards additionally require the player to be connected at the end and present for at least 60 seconds. Creative, Practice, development guests and archived builds do not generate these rewards.
-- Enemies cap at 30, friendly projectiles at 200, enemy shots at 120, attack zones at 24, pickups at 16, local particles at 140. Audio uses the existing voice limits. Clients interpolate remote movement and apply a small bounded local movement lead; this is not full rollback prediction.
+## Controls and recovery
 
-## Shop and interface update
+WASD/arrows move; pointer aims; LMB uses selected equipment; 1–4/wheel select slots; Q dashes; R reloads; V revives nearby teammates over two seconds. Space opens a personal menu and releases input; online combat continues. All active teammates down ends the run. Co-op is designed for keyboard and mouse; existing single-player touch/controller support remains available.
 
-- Hangar removed from the current game; its records and reset control moved into the Cosmetics Shop. Existing purchases and equipped IDs are preserved. Historical archived builds retain their historical menus.
-- 50 additional suits and 50 additional gun skins: 70 of each, 140 total. New designs combine named themes, distinct palette/pattern data, animated geometric suit auras and weapon finishes. Colors remain restrained and effects respect reduced motion. The default suit stays free.
-- Existing shop prices multiplied by 2.5, new items priced on that curve; cases cost 300. Duplicate refunds cap at 180, so a duplicate cannot directly profit over its case price. All 70 published case probabilities use integer basis points and add to exactly 100%. Purchases remain cosmetic-only.
-- Change username from **Settings → Account username → Save Username**, or Accounts & Saves. This uses the same uniqueness checks as account creation and does not create a new account or reset saves. An Internet connection is required to change it.
+The 30 Hz server validates combat and identity; clients render independently. Stale input expires after half a second. Streams have five-second heartbeats and a 20-second reconnect window. Empty rooms, stale connections and client animation loops are cleaned up. Entity, effect and audio budgets stay bounded.
 
-## Verification limits
-
-Loopback multiplayer and browser flows are tested locally. Hosted Supabase identity, SQL migrations, service-role reward delivery, actual Internet latency and a production reverse proxy require verification after configuring your own service. No public multiplayer URL has been created by this update.
-
-Implementation references: [Node HTTP](https://nodejs.org/api/http.html), [Supabase verified user lookup](https://supabase.com/docs/reference/javascript/auth-getuser).
+See UPDATE-5.0.md and PERFORMANCE-5.0.md for changes, measurements and verification limits. Live Supabase delivery, Internet latency and your hosting configuration need checks after deployment.

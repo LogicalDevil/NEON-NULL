@@ -1,0 +1,99 @@
+{
+  "mode": "local unranked",
+  "htmlPath": "work/baseline-v4.11.html",
+  "baseline": true,
+  "clients": 4,
+  "durationSeconds": 35.37,
+  "metrics": [
+    {
+      "pilot": 0,
+      "diagnostics": {
+        "baseline": true,
+        "frameCount": 2308,
+        "frameP50": 16.700000000000728,
+        "frameP95": 25,
+        "renderP50": 0.8999999985098839,
+        "renderP95": 2.2000000029802322,
+        "status": "playing"
+      },
+      "networkKBps": 181.58079432605317,
+      "inputHz": 15.1258128357365,
+      "streamChunksHz": 15.267175572519085
+    },
+    {
+      "pilot": 1,
+      "diagnostics": {
+        "baseline": true,
+        "frameCount": 2292,
+        "frameP50": 16.700000000000728,
+        "frameP95": 25,
+        "renderP50": 0.9000000059604645,
+        "renderP95": 2.2000000029802322,
+        "status": "playing"
+      },
+      "networkKBps": 181.91481901152108,
+      "inputHz": 15.1258128357365,
+      "streamChunksHz": 15.295448119875601
+    },
+    {
+      "pilot": 2,
+      "diagnostics": {
+        "baseline": true,
+        "frameCount": 2276,
+        "frameP50": 16.700000000000728,
+        "frameP95": 25,
+        "renderP50": 1,
+        "renderP95": 2.1999999955296516,
+        "status": "playing"
+      },
+      "networkKBps": 181.91481901152108,
+      "inputHz": 15.154085383093017,
+      "streamChunksHz": 15.295448119875601
+    },
+    {
+      "pilot": 3,
+      "diagnostics": {
+        "baseline": true,
+        "frameCount": 2264,
+        "frameP50": 16.700000000000728,
+        "frameP95": 25,
+        "renderP50": 1,
+        "renderP95": 2.5,
+        "status": "playing"
+      },
+      "networkKBps": 181.91481901152108,
+      "inputHz": 15.182357930449534,
+      "streamChunksHz": 15.238903025162568
+    }
+  ],
+  "serverMetrics": {
+    "steps": 1775,
+    "stepMs": 292.21129999995185,
+    "maxStepMs": 11.299399999999878,
+    "broadcasts": 565,
+    "totalSnapshotBytes": 6730569,
+    "lastSnapshotBytes": 12098,
+    "maxSnapshotBytes": 14747,
+    "droppedSimulationSeconds": 0,
+    "backpressureDrops": 0,
+    "maxBufferBytes": 12703
+  },
+  "regressions": "passed",
+  "heapSamples": {
+    "first": 5827365,
+    "last": 5238976,
+    "min": 4786768,
+    "max": 10331879
+  },
+  "observedGameplay": {
+    "wave": 1,
+    "kills": 31,
+    "bosses": 0
+  },
+  "notes": [
+    "Four independent Chrome headless processes on one machine; this does not measure Internet RTT or Render CPU performance.",
+    "Performance fixture maintains 28 enemies, spare reserve ammo and invulnerability; control traffic and combat still use real browser/server routes.",
+    "No live Supabase credentials, ranked rewards or persistent user progress are used.",
+    "Baseline changes only handshake version to connect the old renderer to the current server; it does not compare old network/server code."
+  ]
+}
