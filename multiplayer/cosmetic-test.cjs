@@ -1,0 +1,12 @@
+'use strict';
+const assert=require('node:assert/strict'),{Match}=require('./engine.cjs'),catalog=require('./catalog.json'),manifest=require('./skin-manifest.json');
+assert.equal(manifest.operators.length,70);assert.equal(Object.keys(manifest.skins).length,70);
+const players=[{id:'one',name:'One',appearance:'exp-12',connected:true,gear:[0,9,0,0],weaponSkins:{'0':'skin-pulse-ghostline','25':'skin-exp-25'}},{id:'two',name:'Two',appearance:'mono',connected:true,gear:[0,0,0,0],weaponSkins:{}}];
+const m=new Match(players,catalog);m.next=1e9;
+let player=m.snapshot().players[0];assert.equal(player.appearance,'exp-12');assert.equal(player.activeSkin,'skin-pulse-ghostline');assert.equal(player.weaponIndex,0);assert.equal(player.firing,false);
+m.input('one',{seq:1,x:1,fire:true,aim:0});m.step(.05);player=m.snapshot().players[0];assert.equal(player.moving,true);assert.equal(player.firing,true);assert.equal(m.snapshot().shots[0].skinId,'skin-pulse-ghostline');assert.equal(m.players[0].gear[0].damage,catalog[0][0].damage);assert(Number.isFinite(m.snapshot().shots[0].angle));
+m.input('one',{seq:2,reload:true});m.step(.05);m.step(.2);player=m.snapshot().players[0];assert(player.reloadProgress>0&&player.reloadProgress<1);
+m.input('one',{seq:3,slot:1,dash:true,aim:0});m.step(.05);player=m.snapshot().players[0];assert.equal(player.activeSkin,'skin-exp-25');assert.equal(player.weaponIndex,25);assert.equal(player.dashing,true);
+m.players[0].invuln=0;m.hit(m.players[0],1);assert.equal(m.snapshot().players[0].hurt,true);m.players[0].slot=3;m.players[0].hp=7;m.shoot(m.players[0],m.players[0].gear[3]);assert.equal(m.snapshot().players[0].healing,true);
+assert(m.events.some(e=>e.kind==='fire'&&e.owner==='one'&&e.skinId==='skin-pulse-ghostline'));
+console.log('PASS cosmetic protocol: all catalog IDs, compatible equipped skins, active-slot skin changes, server fire/reload/dash/hurt/heal signals and projectile skin IDs; cosmetic state does not alter damage');

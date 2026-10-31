@@ -1,0 +1,10 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const source=fs.readFileSync(path.join(__dirname,'../work/neon-null.html'),'utf8').split('</template>').pop();
+const skinsStart=source.indexOf('const weaponSkins='),skinsEnd=source.indexOf('const skinById=',skinsStart);
+const operatorsStart=source.indexOf('const cosmeticCatalog='),operatorsEnd=source.indexOf('let progression=',operatorsStart);
+if([skinsStart,skinsEnd,operatorsStart,operatorsEnd].some(n=>n<0))throw Error('Cosmetic catalog declarations not found');
+const manifest=vm.runInNewContext(source.slice(skinsStart,skinsEnd)+source.slice(operatorsStart,operatorsEnd)+';({operators:Object.keys(cosmeticCatalog),skins:Object.fromEntries(weaponSkins.map(s=>[s.id,s.weaponIndex]))})',{}, {timeout:500});
+if(manifest.operators.length!==70||Object.keys(manifest.skins).length!==70)throw Error('Expected 70 operator and 70 weapon cosmetic IDs');
+fs.writeFileSync(path.join(__dirname,'skin-manifest.json'),JSON.stringify(manifest,null,2));
+console.log('Exported server cosmetic manifest: 70 operators, 70 compatible weapon skins');

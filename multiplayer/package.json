@@ -1,0 +1,8 @@
+{
+  "name": "neon-null-coop",
+  "version": "4.0.0",
+  "private": true,
+  "description": "Authoritative private NEON//NULL cooperative Endless server",
+  "engines": { "node": ">=22" },
+  "scripts": { "start": "node server.cjs", "test": "node test.cjs" }
+}
