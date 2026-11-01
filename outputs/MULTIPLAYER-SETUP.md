@@ -1,4 +1,4 @@
-# NEON//NULL 5.0 — multiplayer setup
+# NEON//NULL 5.2 — multiplayer setup
 
 Deploy the extracted release bundle contents. The Node server prefers root index.html, the same entry GitHub Pages uses, and falls back to outputs/neon-null.html.
 
@@ -19,7 +19,7 @@ Use a Node web service with Node 22+, Build Command `true`, Start Command `node 
 
 Retain the existing server environment variables for the Supabase project URL and publishable key, with DEV_GUESTS=false. The HTML includes this project's public client defaults, so friends do not need to paste keys. For another project, change the client defaults in work/account-save.js and rebuild. The public-config endpoint returns only a validated public configuration, never a private key.
 
-Open the host's HTTPS game URL on each device. Set Supabase Authentication → URL Configuration → Site URL to that address and allow confirmation redirects. Players need confirmed email accounts and usernames. Protocol 5.0 clients and server must be updated together.
+Open the host's HTTPS game URL on each device. Set Supabase Authentication → URL Configuration → Site URL to that address and allow confirmation redirects. Players need confirmed email accounts and usernames. Protocol 5.2 clients and server must be updated together.
 
 For a GitHub Pages client connecting to Render, set ALLOWED_ORIGINS=https://logicaldevil.github.io (no path), and enter the Render HTTPS URL under Multiplayer → Server connection. Opening the game directly on Render is simpler. Moving domains changes browser storage; sync cloud accounts or export guest backups first.
 
@@ -35,4 +35,4 @@ WASD/arrows move; pointer aims; LMB uses selected equipment; 1–4/wheel select 
 
 The 30 Hz server validates combat and identity; clients render independently. Stale input expires after half a second. Streams have five-second heartbeats and a 20-second reconnect window. Empty rooms, stale connections and client animation loops are cleaned up. Entity, effect and audio budgets stay bounded.
 
-See UPDATE-5.0.md and PERFORMANCE-5.0.md for changes, measurements and verification limits. Live Supabase delivery, Internet latency and your hosting configuration need checks after deployment.
+See UPDATE-5.2.md and PERFORMANCE-5.2.md for current changes, measurements and verification limits. Earlier reports are historical. Live Supabase delivery, Internet latency and your hosting configuration need checks after deployment.

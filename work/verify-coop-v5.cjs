@@ -8,6 +8,7 @@ const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 const seconds=Number(process.env.COOP_PROFILE_SECONDS)||60;
 const htmlPath=process.env.COOP_BASELINE_HTML||(fs.existsSync('outputs/neon-null.html')?'outputs/neon-null.html':'outputs/index.html');
 let html=fs.readFileSync(htmlPath,'utf8');
+const documentVersion=html.match(/<title>NEON\/\/NULL v([^<]+)/)?.[1]||'unknown';
 const baseline=!html.includes('diagnostics()');
 if(baseline){
  assert(process.env.COOP_ALLOW_BASELINE==='true','Build the upgraded client first (or COOP_ALLOW_BASELINE=true for a recorded old-client baseline)');
@@ -22,7 +23,7 @@ const waitUntil=async(test,message,timeout=10000)=>{const start=Date.now();while
  const service=createGameServer({dev:true,compactSnapshots:!baseline});
  await new Promise(resolve=>service.server.listen(0,'127.0.0.1',resolve));
  const base='http://127.0.0.1:'+service.server.address().port;
- const browsers=[],contexts=[],pages=[],errors=[],traffic=[],expectedOffline=new Set(),phases=[],testStart=Date.now();let maintain,resultPath;
+ const browsers=[],contexts=[],pages=[],errors=[],traffic=[],expectedOffline=new Set(),phases=[],testStart=Date.now();let maintain,resultPath;const movementChecks={};
  const mark=(phase,details={})=>{const entry={phase,atSeconds:Number(((Date.now()-testStart)/1000).toFixed(2)),...details};phases.push(entry);console.log('PHASE',JSON.stringify(entry))};
  try{
   for(let i=0;i<4;i++){
@@ -35,25 +36,30 @@ const waitUntil=async(test,message,timeout=10000)=>{const start=Date.now();while
    const cdp=await context.newCDPSession(page),streams=new Set();await cdp.send('Network.enable');
    cdp.on('Network.requestWillBeSent',event=>{if(event.request.url===base+'/api/events')streams.add(event.requestId);if(event.request.url===base+'/api/input')traffic[i].inputRequests++});
    cdp.on('Network.dataReceived',event=>{if(streams.has(event.requestId)){traffic[i].bytes+=event.dataLength;traffic[i].snapChunks++}});
-   await page.goto(base);await page.locator('#nn-guest').waitFor({state:'visible'});await page.locator('#nn-guest').click();await page.locator('#wb-multiplayer').click();
-   await page.locator('#nc-panel details summary').click();await page.locator('#nc-url').fill(base);await page.locator('#nc-guest-name').fill('QA'+i);
+   if(process.env.COOP_LATENCY==='true')await page.route(base+'/api/input',async route=>{await sleep(80+(route.request().postDataJSON().seq%3)*20);await route.continue()});await page.goto(base);await page.locator('#nn-guest').waitFor({state:'visible'});await page.locator('#nn-guest').click();await page.locator('#wb-multiplayer').click();
+   await page.locator('#nc-panel>details').first().locator('summary').click();await page.locator('#nc-url').fill(base);await page.locator('#nc-guest-name').fill('QA'+i);
   }
   const leader=pages[0];await leader.locator('#nc-create').click();
   await leader.waitForFunction(()=>/^ROOM [A-F0-9]{6}$/i.test(document.getElementById('nc-code').textContent));
   const code=(await leader.locator('#nc-code').textContent()).split(' ')[1];
   for(const page of pages.slice(1)){await page.locator('#nc-room').fill(code);await page.locator('#nc-join').click();await page.locator('#nc-ready').waitFor({state:'visible'})}
   assert.equal(service.rooms.get(code).members.length,4,'All four clients must share one room');
-  for(let i=0;i<4;i++){await pages[i].locator('#nc-gear-0').selectOption(String([0,2,9,15][i]));await pages[i].locator('#nc-ready').click()}
+  for(let i=0;i<4;i++){await pages[i].locator('#nc-gear-0').selectOption(String([0,2,9,15][i]),{force:true});await pages[i].locator('#nc-ready').click()}
   await leader.locator('#nc-start').click();await leader.locator('#nc-canvas').waitFor({state:'visible'});
   const room=service.rooms.get(code);assert(room.match,'Match did not start');const match=room.match;
   mark('match-started',{connected:match.players.map(p=>p.connected)});
   for(const p of match.players)p.invuln=999;
   for(const page of pages)await page.waitForFunction(()=>typeof window.NeonCoop.diagnostics==='function'||typeof window.__coopBaselineMetrics==='function');
   await leader.bringToFront();
-  const local=match.players.find(p=>p.name==='QA0'),xBefore=local.x;
-  await leader.keyboard.down('d');await sleep(300);await leader.keyboard.up('d');await sleep(200);
+  if(process.env.COOP_LATENCY==='true')await leader.evaluate(()=>{window.__positions=[];let until=performance.now()+2300;function record(){const p=NeonCoop.diagnostics().localPosition;if(p)__positions.push({...p,t:performance.now()});if(performance.now()<until)requestAnimationFrame(record)}record()});const local=match.players.find(p=>p.name==='QA0'),xBefore=local.x;
+  await leader.keyboard.down('d');await sleep(process.env.COOP_LATENCY==='true'?1000:300);await leader.keyboard.up('d');await sleep(process.env.COOP_LATENCY==='true'?1200:200);if(process.env.COOP_LATENCY==='true'){const positions=await leader.evaluate(()=>__positions);let backwards=0;for(let n=1;n<positions.length;n++)backwards=Math.max(backwards,positions[n-1].x-positions[n].x);assert(backwards<2,'Unexpected backwards correction: '+backwards);movementChecks.maxBackwardStepPixels=backwards;console.log('MOVEMENT delayed-input max backward step',backwards)}
   assert(local.x>xBefore+15,'Keyboard movement must reach authoritative simulation');
-  const xFocus=local.x;await leader.evaluate(()=>{const i=document.createElement('input');i.id='qa-focus';document.getElementById('nc-panel').appendChild(i);i.focus()});
+  if(process.env.COOP_LATENCY==='true'){
+ const d=await leader.evaluate(()=>NeonCoop.diagnostics());assert.equal(d.canvasWidth,1280);assert.equal(d.canvasHeight,720);assert(d.camera.width<1280);
+ await leader.keyboard.down('d');await sleep(2400);await leader.keyboard.up('d');await sleep(600);const edge=await leader.evaluate(()=>NeonCoop.diagnostics());assert(Math.abs(edge.camera.x-380)<1,'Camera right boundary');assert(Math.abs(local.x-1260)<1,'Visible world boundary');
+ const box=await leader.locator('#nc-canvas').boundingBox();await leader.mouse.move(box.x+box.width*.25,box.y+box.height*.4);await sleep(100);const aimed=await leader.evaluate(()=>NeonCoop.diagnostics());assert(Math.abs(aimed.aimWorld.x-(aimed.camera.x+225))<2,'Camera world aim conversion');
+ await leader.keyboard.down('a');await sleep(1000);await leader.keyboard.up('a');await sleep(600);
+ }await waitUntil(()=>local.moveQueue.every(c=>!c.x&&!c.y),'Movement preceding text focus must finish',6000);const xFocus=local.x;await leader.evaluate(()=>{const i=document.createElement('input');i.id='qa-focus';document.getElementById('nc-panel').appendChild(i);i.focus()});
   await leader.keyboard.press('d');await sleep(150);assert(Math.abs(local.x-xFocus)<4,'Typing into a field must not move player');await leader.evaluate(()=>document.getElementById('qa-focus').remove());
   for(const page of pages){const r=await page.locator('#nc-canvas').boundingBox();await page.mouse.move(r.x+r.width*.5,r.y+r.height*.25);await page.mouse.down()}
   if(!match.enemies.some(e=>e.boss))match.spawn(true);
@@ -66,8 +72,8 @@ const waitUntil=async(test,message,timeout=10000)=>{const start=Date.now();while
   clearInterval(maintain);maintain=null;for(const page of pages)await page.mouse.up();
   const elapsed=(Date.now()-t0)/1000,metrics=[];
   for(let i=0;i<4;i++){const diagnostics=await readDiagnostics(pages[i]);metrics.push({pilot:i,diagnostics,networkKBps:(traffic[i].bytes-startTraffic[i].bytes)/1024/elapsed,inputHz:(traffic[i].inputRequests-startTraffic[i].inputRequests)/elapsed,streamChunksHz:(traffic[i].snapChunks-startTraffic[i].snapChunks)/elapsed})}
-  resultPath=baseline?'work/coop-v5-baseline-results.json':'work/coop-v5-browser-results.json';
-  const result={mode:'local unranked',htmlPath,baseline,clients:4,durationSeconds:elapsed,metrics,serverMetrics:structuredClone(service.metrics||null),regressions:'pending',load:Object.fromEntries(['enemies','shots','hostile','playersFiring'].map(key=>[key,{min:Math.min(...load.map(s=>s[key])),max:Math.max(...load.map(s=>s[key])),mean:load.reduce((sum,s)=>sum+s[key],0)/load.length}])),heapSamples:{first:memory[0],last:memory.at(-1),min:Math.min(...memory),max:Math.max(...memory)},observedGameplay:{wave:match.wave,kills:match.kills,bosses:match.bosses},notes:['Four independent Chrome headless processes on one machine; this does not measure Internet RTT or Render CPU performance.','Performance fixture replenishes toward 28 enemies every 800ms, spare reserve ammo and invulnerability; actual sampled load is reported. Control traffic and combat still use real browser/server routes.','No live Supabase credentials, ranked rewards or persistent user progress are used.','Baseline changes only handshake version to connect the old renderer to the current server; it does not compare old network/server code.']};
+  resultPath=process.env.COOP_RESULT_PATH||(baseline?'work/coop-v5-baseline-results.json':'work/coop-v5-browser-results.json');
+  const result={buildSha256:require('node:crypto').createHash('sha256').update(html).digest('hex'),version:documentVersion,mode:'local unranked',inputDelayMs:process.env.COOP_LATENCY==='true'?[80,100,120]:[0],movementChecks,htmlPath,baseline,clients:4,durationSeconds:elapsed,metrics,serverMetrics:structuredClone(service.metrics||null),regressions:'pending',load:Object.fromEntries(['enemies','shots','hostile','playersFiring'].map(key=>[key,{min:Math.min(...load.map(s=>s[key])),max:Math.max(...load.map(s=>s[key])),mean:load.reduce((sum,s)=>sum+s[key],0)/load.length}])),heapSamples:{first:memory[0],last:memory.at(-1),min:Math.min(...memory),max:Math.max(...memory)},observedGameplay:{wave:match.wave,kills:match.kills,bosses:match.bosses},notes:['Four independent Chrome headless processes on one machine; this does not measure Internet RTT or Render CPU performance.','Performance fixture replenishes toward 28 enemies every 800ms, spare reserve ammo and invulnerability; actual sampled load is reported. Control traffic and combat still use real browser/server routes.','No live Supabase credentials, ranked rewards or persistent user progress are used.','Baseline changes only handshake version to connect the old renderer to the current server; it does not compare old network/server code.']};
   fs.writeFileSync(resultPath,JSON.stringify(result,null,2));
   mark('profile-saved',{connected:match.players.map(p=>p.connected),sessions:service.sessions.size});
   mark('screenshot-start');
@@ -76,7 +82,7 @@ const waitUntil=async(test,message,timeout=10000)=>{const start=Date.now();while
   if(!baseline){
    mark('hotbar-regression-start');
    assert(await leader.locator('#nc-health').isVisible(),'Persistent player health HUD');assert(await leader.locator('#nc-dash').isVisible(),'Persistent dash cooldown HUD');
-   const r=await leader.locator('#nc-canvas').boundingBox();await leader.mouse.move(r.x+r.width*.6,r.y+r.height*.3);await leader.mouse.down();await sleep(120);await leader.keyboard.press('2');await sleep(300);
+   const r=await leader.locator('#nc-canvas').boundingBox();await leader.mouse.move(r.x+r.width*.6,r.y+r.height*.3);await leader.mouse.down();await sleep(120);const slotAt=Date.now();await leader.keyboard.press('2');assert.equal(await leader.locator('#nc-slot-1').getAttribute('aria-pressed'),'true','Slot selection must update locally before server acknowledgement');await waitUntil(()=>local.slot===1,'Number hotkey must reach authoritative secondary selection',3000);movementChecks.slotAcknowledgementMs=Date.now()-slotAt;
    assert.equal(local.slot,1,'Number hotkey must switch to secondary');assert.equal(local.input.fire,false,'Switching slots while holding LMB must not auto-use the next item');await leader.mouse.up();await leader.locator('#nc-slot-0').click();
    mark('hotbar-regression-finished',{connected:match.players.map(p=>p.connected)});
   }

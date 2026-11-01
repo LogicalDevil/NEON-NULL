@@ -1,0 +1,44 @@
+{
+  "fixture": "One local headless Chrome, 1280x720 canvas; 12 operators,12 guns,48 projectiles; 180 frames per quality; not a full-game FPS benchmark",
+  "results": [
+    {
+      "quality": "low",
+      "frameP50": 16.699999999999818,
+      "frameP95": 26.200000000000728,
+      "drawP50": 1,
+      "drawP95": 2.7000000029802322,
+      "cache": {
+        "operators": 70,
+        "weapons": 70,
+        "cachedSprites": 24,
+        "cachedBytes": 1204224
+      }
+    },
+    {
+      "quality": "standard",
+      "frameP50": 16.699999999999818,
+      "frameP95": 25,
+      "drawP50": 1.0999999940395355,
+      "drawP95": 2.2000000029802322,
+      "cache": {
+        "operators": 70,
+        "weapons": 70,
+        "cachedSprites": 60,
+        "cachedBytes": 6623232
+      }
+    },
+    {
+      "quality": "high",
+      "frameP50": 16.69999999999891,
+      "frameP95": 17.100000000000364,
+      "drawP50": 1.4000000059604645,
+      "drawP95": 6.4000000059604645,
+      "cache": {
+        "operators": 70,
+        "weapons": 70,
+        "cachedSprites": 84,
+        "cachedBytes": 17461248
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+/* Local font faces are embedded by build-game.py. */
+#word-blaster{--nn-heading:'NN Chakra','Segoe UI',sans-serif;--nn-body:'Segoe UI',Arial,sans-serif;--nn-metal:#e5ecef;--nn-edge:#9caeb8;--nn-slate:#243d4d;--nn-brass:#a17d39;--nn-focus:#2e708a;font-family:var(--nn-body);font-size:14px;line-height:1.5}
+#word-blaster .pixel,#word-blaster h1,#word-blaster h2,#word-blaster h3,#word-blaster .slot-item,#word-blaster .shop-card-name,#word-blaster .nc-slot strong{font-family:var(--nn-heading);font-weight:600;letter-spacing:.025em;line-height:1.3}
+#word-blaster .menu-screen>h2{font-size:clamp(30px,5vw,52px);letter-spacing:.1em}#word-blaster .screen .sub{color:#5b7483;letter-spacing:.12em;font:600 12px var(--nn-heading)}
+#word-blaster .hud,#word-blaster .ammo-panel,#word-blaster .shop-wallet,#word-blaster .slot-state,#word-blaster #nc-combat-hud{font-family:var(--nn-heading);font-variant-numeric:tabular-nums;font-feature-settings:'tnum';letter-spacing:.02em}
+#word-blaster button.btn,#word-blaster .hotbar-slot,#word-blaster .nc-slot,#word-blaster .nn-select-trigger{position:relative;min-height:38px;border:1px solid var(--nn-edge);border-radius:2px 10px 2px 10px;background:linear-gradient(165deg,#fff 15%,#eef3f5 85%);color:#263d4b;box-shadow:inset 0 1px #fff,inset 3px 0 #d8e2e7;font-family:var(--nn-heading);font-size:13px;font-weight:600;line-height:1.35;letter-spacing:.035em;white-space:normal;transition:background .12s,border-color .12s,box-shadow .12s;transform:none!important;cursor:pointer}
+#word-blaster button.btn:hover:not(:disabled),#word-blaster .nn-select-trigger:hover:not(:disabled){border-color:#55788c;background:#e6f0f4;box-shadow:inset 3px 0 #55788c}
+#word-blaster button.btn:active:not(:disabled),#word-blaster .nn-select-trigger:active:not(:disabled){background:#d9e5eb;box-shadow:inset 0 2px 5px #152d3d24}
+#word-blaster button.btn-primary,#word-blaster button[aria-pressed=true]:not(.nn-select-trigger),#word-blaster .hotbar-slot.selected{background:linear-gradient(145deg,#243d4d,#152630)!important;color:#f5f9fb!important;border-color:#416071;box-shadow:inset 3px 0 #c3a367}
+#word-blaster button[aria-pressed=true]:not(.nn-select-trigger){border-bottom:3px solid #c3a367}
+#word-blaster button:disabled,#word-blaster .nn-select-trigger:disabled{opacity:.5;cursor:not-allowed;box-shadow:none;filter:grayscale(1)}
+#word-blaster button:focus-visible,#word-blaster input:focus-visible,#word-blaster select:focus-visible,#word-blaster summary:focus-visible{outline:3px solid var(--nn-focus)!important;outline-offset:3px!important}
+#word-blaster #wb-progress-reset,#word-blaster #nn-delete-local{color:#913d47;border-color:#c6979d;background:#fff5f5}
+#word-blaster input:not([type=checkbox]):not([type=range]),#word-blaster select{font-family:var(--nn-body);font-size:13px;border:1px solid #a9bbc5;border-radius:3px 8px 3px 8px;padding:8px 10px;background:#fff;color:#253e4e}
+#word-blaster .nn-select{display:inline-block;position:relative;min-width:0;width:100%;vertical-align:middle}
+#word-blaster .nn-select-trigger{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;text-align:left;padding:9px 12px;min-width:0}
+#word-blaster .nn-select-trigger>span{min-width:0;overflow-wrap:anywhere;flex:1}#word-blaster .nn-select-trigger:after{content:'';width:7px;height:7px;flex-shrink:0;border-right:2px solid #728d9c;border-bottom:2px solid #728d9c;transform:rotate(45deg) translateY(-2px)}
+#word-blaster .nn-select-trigger[aria-expanded=true]{border-color:var(--nn-brass);box-shadow:inset 3px 0 var(--nn-brass)}#word-blaster .nn-select-trigger[aria-expanded=true]:after{transform:rotate(225deg)}
+#word-blaster select.nn-native-select{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;overflow:hidden!important;clip-path:inset(50%)!important;padding:0!important;border:0!important;pointer-events:none!important}
+#word-blaster .nn-select-popup{position:fixed;z-index:24000;padding:8px;display:flex;flex-direction:column;gap:7px;background:#f6f9fb;border:1px solid #7894a5;border-top:3px solid #b18f50;border-radius:2px 10px 2px 10px;box-shadow:0 14px 36px #0c233a40;min-width:180px;max-width:calc(100vw - 16px);box-sizing:border-box}
+#word-blaster .nn-select-popup[hidden]{display:none}#word-blaster .nn-select-search{flex-shrink:0;min-height:36px;width:100%}#word-blaster .nn-select-options{overflow:auto;overscroll-behavior:contain;min-height:0;max-height:260px}
+#word-blaster .nn-select-option{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px;padding:10px 9px;min-height:38px;font:13px/1.45 var(--nn-body);color:#253e4e;border:1px solid transparent;border-radius:3px;cursor:pointer;overflow-wrap:anywhere}
+#word-blaster .nn-select-option:before{content:''}#word-blaster .nn-select-option[aria-selected=true]:before{content:'✓';font-weight:700;color:#8b6b2d}#word-blaster .nn-select-option.nn-active{background:#e1ecf2;border-color:#9bb3c1}#word-blaster .nn-select-option[aria-selected=true]{font-weight:700;box-shadow:inset 3px 0 #ac8a4d}#word-blaster .nn-select-option[aria-disabled=true]{opacity:.4;cursor:not-allowed}#word-blaster .nn-select-hint{font:11px/1.4 var(--nn-body);color:#657c89;padding:2px 5px}
+#word-blaster .shop-card-name{font-size:14px}#word-blaster .shop-card-meta{font:11px var(--nn-heading);letter-spacing:.02em}#word-blaster .shop-preview p,#word-blaster .skin-case p{font-family:var(--nn-body);font-size:12px;line-height:1.65}#word-blaster .slot-category{font:600 10px var(--nn-heading);letter-spacing:.07em}#word-blaster .slot-item{font-size:13px}#word-blaster .slot-state{font-size:11px}
+@media(max-width:700px){#word-blaster .slot-item{font-size:11px}#word-blaster .slot-category{font-size:9px}#word-blaster .hotbar-slot{column-gap:4px}#word-blaster .menu-actions .btn{padding:10px;font-size:12px}#word-blaster .nn-select-trigger{font-size:12px;padding:8px 10px}}
+@media(pointer:coarse){#word-blaster .btn,#word-blaster .nn-select-trigger,#word-blaster .nn-select-option{min-height:44px}}
+@media(prefers-reduced-motion:reduce){#word-blaster button,#word-blaster .nn-select-trigger{transition:none!important}}
+@media(forced-colors:active){#word-blaster .nn-select-popup,#word-blaster .nn-select-trigger,#word-blaster .nn-select-option{background:Canvas;color:CanvasText;border:1px solid CanvasText}#word-blaster .nn-select-option.nn-active{outline:2px solid Highlight}}
+
+#word-blaster{box-sizing:border-box;min-width:0}#word-blaster #nc-panel{min-width:0;max-width:100%}#word-blaster #nc-hud{overflow-wrap:anywhere}#word-blaster #nc-controls>span{min-width:0;flex:1;line-height:1.5}
+
+/* Arena-first gameplay layout: compact chrome, unchanged menu typography. */
+#word-blaster:has(#wb-game:not([hidden])){padding:8px}
+#word-blaster #wb-game{gap:5px}
+#word-blaster #wb-game .topline{padding:0 0 3px;margin:0;min-height:28px;gap:6px}
+#word-blaster #wb-game .topline .pixel{font-size:13px;margin:0}
+#word-blaster #wb-game .topline button.btn,#word-blaster #wb-game .controls button.btn{min-height:28px;padding:4px 8px;font-size:11px}
+#word-blaster #wb-game .hud{padding:5px 8px;margin:0;gap:4px 10px;font-size:12px}
+#word-blaster #wb-game .hud .mission-objective{padding:3px 6px;margin:0;font-size:11px}
+#word-blaster #wb-game #wb-objective-progress{padding:3px 5px;font-size:10px}
+#word-blaster #wb-game .hud .stat{padding:2px 5px;min-width:0}
+#word-blaster #wb-game .hud .stat span{font-size:9px}
+#word-blaster #wb-game .hud .stat b{font-size:13px}
+#word-blaster #wb-game .hotbar{gap:5px;margin:0}
+#word-blaster #wb-game .hotbar-slot{min-height:42px;padding:4px 7px;gap:2px 6px;border-radius:5px}
+#word-blaster #wb-game .slot-title{font-size:8px;line-height:1.1;margin:0}
+#word-blaster #wb-game .slot-item{font-size:11px;line-height:1.15;margin:0}
+#word-blaster #wb-game .slot-state{font-size:10px;line-height:1.1;margin:0}
+#word-blaster #wb-game .slot-num{font-size:12px;padding:2px;min-width:20px;width:22px;height:24px}
+#word-blaster #wb-game .ammo-panel{padding:3px 7px;min-height:24px;font-size:10px;margin:0;gap:6px}
+#word-blaster #wb-game .help{display:none}
+#word-blaster #wb-game .controls{gap:5px;margin:0;padding:0}
+#word-blaster #wb-game .notice{font-size:11px!important;line-height:1.3;margin:2px 0;min-height:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#word-blaster #ns-interact{min-height:28px;font-size:11px;padding:4px 8px;bottom:6px}
+@media(pointer:coarse){#word-blaster #wb-game .topline button.btn,#word-blaster #wb-game .controls button.btn,#word-blaster #ns-interact{min-height:38px}}

@@ -1,0 +1,42 @@
+from pathlib import Path
+from zipfile import ZipFile, ZIP_DEFLATED
+
+root = Path(__file__).resolve().parent.parent
+files = [
+    'multiplayer/engine.cjs', 'multiplayer/server.cjs', 'multiplayer/catalog.json',
+    'multiplayer/skin-manifest.json', 'multiplayer/build-skin-manifest.cjs',
+    'multiplayer/package.json', 'multiplayer/.env.example', 'multiplayer/.gitignore',
+    'multiplayer/test.cjs', 'multiplayer/combat-test.cjs', 'multiplayer/account-session-test.cjs', 'multiplayer/protocol-test.cjs', 'multiplayer/auth-test.cjs', 'multiplayer/cosmetic-test.cjs',
+    'multiplayer/build-catalog.cjs', 'outputs/neon-null.html',
+    'outputs/supabase-setup.sql', 'outputs/supabase-usernames.sql',
+    'outputs/supabase-multiplayer.sql', 'outputs/MULTIPLAYER-SETUP.md',
+    'outputs/CLOUD-SAVES.md', 'outputs/COSMETIC-INVENTORY.md', 'outputs/UPDATE-4.1.md', 'outputs/UPDATE-4.2.md', 'outputs/UPDATE-4.3.md', 'outputs/UPDATE-4.4.md', 'outputs/UPDATE-4.5.md', 'outputs/UPDATE-4.7.md', 'outputs/UPDATE-4.8.md', 'outputs/UPDATE-4.9.md', 'outputs/UPDATE-4.10.md', 'outputs/UPDATE-4.11.md', 'outputs/UPDATE-5.0.md', 'outputs/UPDATE-5.1.md', 'outputs/coop-v5.1-browser-results.json', 'outputs/PERFORMANCE-5.0.md', 'outputs/coop-v5-browser-results.json', 'outputs/coop-v5-baseline-results.json',
+    'index.html', 'work/neon-null.html', 'work/verify-coop-v5.cjs', 'work/build-game.py', 'work/account-save.js',
+    'work/multiplayer-client.js', 'work/cosmetic-models.js', 'work/cosmetic-studio.js',
+    'work/interface-theme.css', 'work/interface-controls.js', 'work/enemy-models.js',
+    'work/fonts/ChakraPetch-Regular.ttf', 'work/fonts/ChakraPetch-SemiBold.ttf', 'work/fonts/OFL.txt',
+    'outputs/UPDATE-5.3.md', 'outputs/UPDATE-5.4.md', 'outputs/UPDATE-5.5.md','outputs/UPDATE-5.6.md','work/combat-effects.js','work/test-combat-effects.cjs','multiplayer/melee-impact-test.cjs', 'work/verify-melee-art.cjs', 'outputs/RENDER-5.4.json', 'work/verify-render-v54.cjs', 'work/verify-model-browser.cjs', 'outputs/FONT-LICENSES.md', 'work/verify-interface-v53.cjs', 'work/verify-ui-refresh.cjs',
+    'work/test-cosmetic-models.cjs', 'work/package-release.py',
+    'multiplayer/movement-test.cjs', 'multiplayer/client-movement-test.cjs', 'multiplayer/melee-test.cjs',
+    'work/verify-enemy-parity.cjs', 'work/verify-cases-melee.cjs',
+    'work/verify-model-coop.cjs', 'work/verify-run-reset.cjs',
+    'outputs/UPDATE-5.2.md', 'outputs/PERFORMANCE-5.2.md',
+    'outputs/coop-v5.2-normal-results.json', 'outputs/coop-v5.2-latency-results.json',
+]
+files += [
+    'multiplayer/modifications.cjs', 'multiplayer/expansion-test.cjs',
+    'work/expansion-runtime.js', 'work/combat-expansion.js', 'work/sector-run.js', 'work/signal-track.js',
+    'work/test-sector-run.cjs', 'work/test-signal-track.cjs', 'work/verify-sector-run.cjs',
+    'work/verify-sector-integrated.cjs', 'work/verify-signal-track.cjs', 'work/verify-track-integration.cjs',
+    'work/verify-runtime-integration.cjs', 'work/verify-coop-expansion.cjs', 'work/verify-sp-performance.cjs',
+    'outputs/UPDATE-6.0.md', 'outputs/SIGNAL-TRACK.md', 'outputs/COOP-EXPANSION-CONTRACT.md',
+    'outputs/PERFORMANCE-6.0.md', 'outputs/coop-v6.0-results.json',
+    'outputs/coop-v6.0-latency-results.json', 'outputs/coop-v6.0-before-renderer-results.json',
+    'outputs/singleplayer-v6.0-results.json', 'outputs/neon-null-v6.0.html',
+]
+files = list(dict.fromkeys(files))
+target = root / 'outputs/neon-null-v6.0-bundle.zip'
+with ZipFile(target, 'w', ZIP_DEFLATED) as archive:
+    for name in files:
+        archive.write(root / name, name)
+print(f'Packaged {len(files)} files ({target.stat().st_size} bytes); no private keys or browser data included')

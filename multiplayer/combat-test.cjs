@@ -13,7 +13,7 @@ m=make();p=m.players[0];p.hp=8;p.slot=3;p.input.aim=0;assert(m.shoot(p,p.gear[3]
 p.slot=3;p.hp=9;assert.equal(m.shoot(p,p.gear[3]),false);
 // Held melee continues its cadence; changing slots still requires releasing the trigger.
 m=make();p=m.players[0];const practice=m.spawn(false,0);practice.intro=0;practice.x=p.x+10;practice.y=p.y;practice.speed=0;practice.timer=1e6;practice.hp=practice.max=100;
-for(let n=0;n<27;n++){m.input(p.id,{seq:n,slot:2,fire:n>0,aim:0});m.step()}assert(practice.hp<=94,'Melee must repeat at its cooldown while LMB is held');
+for(let n=0;n<27;n++){m.input(p.id,{seq:n,slot:2,fire:n>0,aim:0});m.step()}assert(practice.hp<100&&m.events.filter(e=>e.kind==='slash'&&e.owner===p.id).length>=2,'Balanced melee must repeat at its cooldown while LMB is held');
 // Full-health Medkit does not enter cooldown. Ranged and utility selection do not activate on held click.
 m=make();p=m.players[0];p.slot=3;assert.equal(m.shoot(p,p.gear[3]),false);assert.equal(p.gear[3].cool,0);p.slot=0;m.input(p.id,{seq:1,slot:3,fire:true});m.step();assert.equal(p.gear[3].cool,0);assert(p.fireLocked);m.input(p.id,{seq:2,slot:3,fire:false});m.step();assert.equal(p.fireLocked,false);
 // Three-round burst consumes three rounds and produces delayed subshots; not one free burst per round.
