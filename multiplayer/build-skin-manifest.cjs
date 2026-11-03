@@ -8,3 +8,7 @@ const manifest=vm.runInNewContext(source.slice(skinsStart,skinsEnd)+source.slice
 if(manifest.operators.length!==70||Object.keys(manifest.skins).length!==70)throw Error('Expected 70 operator and 70 weapon cosmetic IDs');
 fs.writeFileSync(path.join(__dirname,'skin-manifest.json'),JSON.stringify(manifest,null,2));
 console.log('Exported server cosmetic manifest: 70 operators, 70 compatible weapon skins');
+
+const a=source.indexOf('const casePool='),b=source.indexOf('const syncCaseButtons=',a);if(a<0||b<0)throw Error('Case rules missing');
+const cases=vm.runInNewContext(source.slice(skinsStart,skinsEnd)+source.slice(operatorsStart,operatorsEnd)+source.slice(a,b)+';({weapon:casePool("weapon"),operator:casePool("operator")})',{}, {timeout:500});
+fs.writeFileSync(path.join(__dirname,'case-catalog.json'),JSON.stringify(cases,null,2));

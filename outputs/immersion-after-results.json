@@ -1,0 +1,24 @@
+{
+  "version": "6.1",
+  "durationSeconds": 21.107,
+  "profileSeconds": 20,
+  "frames": 1205,
+  "frameP50": 16.69999999999891,
+  "frameP95": 17,
+  "renderP50": 2.5,
+  "renderP95": 4,
+  "load": {
+    "enemyMin": 26,
+    "enemyMax": 30,
+    "shotMax": 4,
+    "particleMax": 112
+  },
+  "heapBytes": 7721942,
+  "regressions": "passed",
+  "notes": [
+    "One headless Chrome process, localhost-free fixture of actual engine; 30 varied enemies maintained, invulnerability and reserve refills used.",
+    "Checks 12 restarts, viewport/world invariance and no animation loop after menu. Not an Internet or long-session endurance benchmark.",
+    "Version field corrected from the previous test runner hard-coded label; loaded HTML was v6.1. Later co-op sprite cache tuning does not change the solo rendering path."
+  ],
+  "errors": []
+}

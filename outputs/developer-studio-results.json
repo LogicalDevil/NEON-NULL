@@ -1,0 +1,24 @@
+{
+  "version": "6.2",
+  "batch100RoundTripAndPaintMs": 523.0284000000001,
+  "diagnostics": {
+    "previewDrawMsP95": 0.800000011920929,
+    "previewSamples": 180,
+    "temporaryResults": 110,
+    "testCollection": 51,
+    "storage": "memory-only",
+    "artCache": {
+      "operators": 70,
+      "weapons": 70,
+      "cachedSprites": 1,
+      "cachedBytes": 50176
+    },
+    "session": "Server authorized · renewed every 30 seconds"
+  },
+  "uniquePreviews": 24,
+  "browserErrors": [],
+  "notes": [
+    "Local mock identity provider with real game server and Chrome. No live Supabase/Render login tested.",
+    "Preview diagnostic is render callback duration, not end-to-end frame interval;100-roll timing includes browser automation overhead."
+  ]
+}

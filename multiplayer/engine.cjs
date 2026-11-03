@@ -1,8 +1,10 @@
 'use strict';
 const {randomUUID,randomInt}=require('node:crypto');
 const modifications=require('./modifications.cjs');
+const enemyDirector=require('./enemy-director.cjs');
+const canonical=id=>({pursuer:'drone',shield:'shield-carrier',support:'support-drone',minelayer:'mine-layer'}[id]||id);
 const W=1280,H=800,DT=1/30,clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-const types=[['pursuer',6,72,14],['sprinter',3,135,12],['ranger',6,55,16],['bomber',10,55,18],['brute',24,38,25],['dasher',7,80,16],['boss',150,42,50],['shield',16,48,21],['weaver',7,95,17],['support',9,52,16],['minelayer',10,66,17]];
+const types=[['pursuer',6,72,14],['sprinter',3,135,12],['ranger',6,55,16],['bomber',10,55,18],['brute',24,38,25],['dasher',7,80,16],['boss',150,42,50],['shield',16,48,21],['weaver',7,95,17],['support',9,52,16],['minelayer',10,66,17],['asteroid',12,42,21],['orb',3,105,11],['stalker',14,76,16],['charger',10,84,17],['blink-stalker',10,90,15]];
 const bossNames=['Signal Warden','Archive Sentinel','Core Breaker'];
 const reward=(score,seconds)=>seconds<60?0:Math.min(120,Math.floor(score/250),Math.floor(seconds/30)*8);
 const finite=(n,fallback=0)=>Number.isFinite(n)?n:fallback;
@@ -14,7 +16,7 @@ function segmentDistance(x,y,ax,ay,bx,by){const dx=bx-ax,dy=by-ay,t=clamp(((x-ax
 function nearest(list,x,y,eligible=()=>true){let best=null,distance=Infinity;for(const item of list)if(eligible(item)){const d=(item.x-x)**2+(item.y-y)**2;if(d<distance){best=item;distance=d}}return best}
 class Match{
  constructor(players,catalog,options={}){
-  this.matchId=randomUUID();this.time=0;this.wave=0;this.score=0;this.kills=0;this.bosses=0;this.enemies=[];this.shots=[];this.hostile=[];this.pickups=[];this.zones=[];this.events=[];this.decoys=[];this.eventId=0;this.nextId=0;this.next=1;this.remaining=0;this.done=false;this.result=null;this.mode=options.mode==='sector'?'sector':'endless';this.ranked=options.ranked===true;this.trackEligible=options.trackEligible===true||(options.trackEligible===undefined&&this.ranked);this.pings=[];this.fields=[];this.director={pressure:0,lastMajor:-10};this.sector=this.mode==='sector'?{stage:0,state:'arrival',title:'Relay Yard',path:[],objects:[],depotDisabled:false,intel:false}:null;
+  this.enemyDirector=enemyDirector.create();this.matchId=randomUUID();this.time=0;this.wave=0;this.score=0;this.kills=0;this.bosses=0;this.enemies=[];this.shots=[];this.hostile=[];this.pickups=[];this.zones=[];this.events=[];this.decoys=[];this.eventId=0;this.nextId=0;this.next=1;this.remaining=0;this.done=false;this.result=null;this.mode=options.mode==='sector'?'sector':'endless';this.ranked=options.ranked===true;this.trackEligible=options.trackEligible===true||(options.trackEligible===undefined&&this.ranked);this.pings=[];this.fields=[];this.director={pressure:0,lastMajor:-10};this.sector=this.mode==='sector'?{stage:0,state:'arrival',title:'Relay Yard',path:[],objects:[],depotDisabled:false,intel:false}:null;
   this.players=players.slice(0,4).map((p,i)=>({id:p.id,user:p.user||null,name:p.name,appearance:p.appearance||'mono',weaponSkins:p.weaponSkins||{},role:['vanguard','engineer','scout','medic'].includes(p.role)?p.role:'vanguard',skillCooldown:0,pingCooldown:0,activePlayTime:0,damageDealt:0,kills:0,primaryKills:0,secondaryKills:0,meleeKills:0,staggers:0,weakHits:0,objectives:0,healing:0,revives:0,bosses:0,waves:0,damageTaken:0,supportActions:0,interactions:0,actions:0,pendingSkill:false,pendingInteract:false,connected:p.connected===true,x:W/2+(i-1.5)*55,y:H/2,hp:10,down:0,revive:0,slot:0,cool:0,dash:0,invuln:0,buff:0,overclock:0,shield:0,shieldTime:0,repair:0,repairTick:0,input:{},seq:-1,processedSeq:-1,moveQueue:[],moveCredit:0,moveAck:-1,lastQueuedMove:-1,batchedMovement:false,lastInput:-10,activeTime:0,moving:false,motionEpoch:0,pendingDash:false,pendingReload:false,pendingUse:false,fireLocked:false,firedAt:-10,hurtAt:-10,healedAt:-10,dashedAt:-10,gear:Array.from({length:4},(_,slot)=>{
    const idx=Number.isInteger(p.gear?.[slot])&&catalog[slot]?.[p.gear[slot]]?p.gear[slot]:0,item=catalog[slot][idx],weaponIndex=slot===0?idx:slot===1?catalog[0].length+idx:-1;
    return {...modifications.apply(item,p.mods?.[slot]),weaponIndex,skinId:slot<2?(p.weaponSkins?.[String(weaponIndex)]||null):null,mag:item.mag||0,reserve:item.reserve||0,reload:0,cool:0};
@@ -71,8 +73,8 @@ class Match{
  heal(p,n,owner=p.id){const before=p.hp;p.hp=Math.min(10,p.hp+Math.max(0,finite(n)));if(p.hp>before){p.healedAt=this.time;this.credit(this.players.find(q=>q.id===owner),'healing',p.hp-before);this.event('heal',p.x,p.y,{owner:p.id,healer:owner,amount:p.hp-before})}return p.hp-before}
  damage(e,amount,owner,kind='hit',extra={}){
   if(e.dead||!Number.isFinite(amount)||amount<=0||e.intro>0)return false;
-  const player=this.players.find(p=>p.id===owner);if(e.markLeft>0)amount*=1.15;if(e.exposed>0)amount*=1.15;if(e.protectedBy&&e.kind!==7&&this.enemies.some(a=>a.id===e.protectedBy&&!a.dead&&a.hp>0&&a.stun<=0))amount*=.8;
-  if(e.kind===7&&e.stun<=0&&kind!=='pierce'&&kind!=='explosion')amount*=.55;
+  const player=this.players.find(p=>p.id===owner);if(e.markLeft>0)amount*=1.15;if(e.exposed>0)amount*=1.15;if(!extra.armor&&e.protectedBy&&e.kind!==7&&this.enemies.some(a=>a.id===e.protectedBy&&!a.dead&&a.hp>0&&a.stun<=0))amount*=.8;
+  if(!extra.armor&&e.kind===7&&e.stun<=0&&kind!=='pierce'&&kind!=='explosion')amount*=.55;
   const accepted=Math.min(e.hp,amount);e.hp-=amount;e.hurtAt=this.time;if(player){player.damageDealt+=Math.max(0,accepted);if(e.exposed>0)this.credit(player,'weakHits');if(e.markOwner&&e.markOwner!==owner){const marker=this.players.find(p=>p.id===e.markOwner);if(marker&&!e.markCredited){marker.supportActions++;e.markCredited=true}}}if(e.hp>0)this.staggerHit(e,amount,owner,kind,extra);
   if(e.hp>0)return false;
   e.dead=true;this.kills++;if(player){this.credit(player,'kills');const slot=Number.isInteger(extra.slot)?extra.slot:kind.startsWith('melee:')?2:player.slot;this.credit(player,['primaryKills','secondaryKills','meleeKills'][slot]);if(e.boss)this.credit(player,'bosses')}this.score+=e.boss?1000:100+e.kind*15;if(e.boss){this.bosses++;for(const z of this.zones)if(z.owner===e.id)z.left=-1;}
@@ -83,7 +85,7 @@ class Match{
  startReload(p,g){if(g.reload>0||g.mag>=g.magSize||g.reserve<=0)return false;g.reload=Math.max(.2,g.reloadTime||1);this.event('reload-start',p.x,p.y,{owner:p.id,weaponIndex:g.weaponIndex,slot:p.gear.indexOf(g),skinId:g.skinId,weaponKind:g.kind,sfx:g.sfx,reloadStyle:g.reloadStyle});return true}
  projectile(p,g,angle,damage=g.damage,extra={}){
   if(this.shots.length>=200)return;
-  const speed=g.speed||550;this.shots.push({id:this.id(),owner:p.id,slot:p.slot,skinId:g.skinId,x:clamp(p.x+Math.cos(angle)*20,1,W-1),y:clamp(p.y+Math.sin(angle)*20,1,H-1),vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,speed,damage:damage*(p.buff>0?1.4:1),kind:g.kind,life:2,age:0,pierceBudget:g.pierceExtra||0,returning:!!g.returning,pierce:['rail','sniper','lance','tether','black','beam'].includes(g.kind),bounces:0,hit:[],...extra});
+  const speed=g.speed||550;this.shots.push({id:this.id(),owner:p.id,slot:p.slot,skinId:g.skinId,x:clamp(p.x+Math.cos(angle)*20,1,W-1),y:clamp(p.y+Math.sin(angle)*20,1,H-1),vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,speed,damage:damage*(p.buff>0?1.4:1),kind:g.kind,life:2,age:0,pierceBudget:g.pierceExtra||0,returning:!!g.returning,armor:!!g.armor,pierce:['rail','sniper','lance','tether','black','beam'].includes(g.kind),bounces:0,hit:[],...extra});
  }
  shoot(p,g){
   if(g.cool>0)return false;const slot=p.slot;
@@ -128,11 +130,11 @@ class Match{
  splash(x,y,r,damage,owner,exclude,extra={}){for(const e of this.enemies)if(!e.dead&&e!==exclude&&Math.hypot(e.x-x,e.y-y)<r+e.r)this.damage(e,damage,owner,'explosion',extra)}
  spawn(boss=false,forcedKind){
   if(this.enemies.length>=30||boss&&this.enemies.some(e=>e.boss&&!e.dead))return null;
-  const pool=[0,1,...(this.wave>=2?[2]:[]),...(this.wave>=3?[3,5]:[]),...(this.wave>=4?[4,8]:[]),...(this.wave>=6?[7,9]:[]),...(this.wave>=8?[10]:[])],kind=boss?6:Number.isInteger(forcedKind)&&types[forcedKind]?forcedKind:pool[randomInt(pool.length)],t=types[kind];
+  const pool=enemyDirector.eligible(Math.min(4,this.wave)),selected=boss?'boss':Number.isInteger(forcedKind)&&types[forcedKind]?canonical(types[forcedKind][0]):this.enemyDirector.next(pool,this.spawnBatch||{}),kind=boss?6:types.findIndex(t=>canonical(t[0])===selected),t=types[kind];if(!t)return null;
   let x=32,y=32;for(let attempt=0;attempt<10;attempt++){const side=randomInt(4);x=side===0?t[3]+6:side===1?W-t[3]-6:randomInt(40,W-40);y=side===2?t[3]+6:side===3?H-t[3]-6:randomInt(40,H-40);if(!this.players.some(p=>p.connected&&!p.down&&Math.hypot(p.x-x,p.y-y)<160))break}
   if(boss){x=W/2;y=110;this.event('arrival',x,y,{bossName:bossNames[(Math.floor(this.wave/5)-1+3)%3]})}
   const hp=t[1]*(1+.45*(Math.max(1,this.players.filter(p=>p.connected&&!p.down&&p.hp>0).length)-1))*(1+Math.min(2,this.wave*.07));
-  const e={id:this.id(),kind,type:t[0],x,y,hp,max:hp,r:t[3],speed:t[2],timer:2+Math.random()*2,phase:0,slow:0,stun:0,burn:0,burnTick:0,faction:this.sector?'Relay Security':this.wave<4?'Relay Security':this.wave<8?'Archive Constructs':'Reactor Remnants',stagger:0,staggerMax:boss?40:Math.max(6,hp*.7),staggerImmune:0,exposed:0,markLeft:0,boss,theme:boss?(Math.floor(this.wave/5)-1+3)%3:0,pattern:0,dropTimer:10,dead:false,intro:boss?1.3:.45,hurtAt:-10,aim:0,warning:0,state:'enter',targetX:x,targetY:y,dropTimer:10};this.enemies.push(e);return e;
+  const e={id:this.id(),kind,type:t[0],x,y,hp,max:hp,r:t[3],speed:t[2]*enemyDirector.speedMultiplier,timer:2+Math.random()*2,phase:0,slow:0,stun:0,burn:0,burnTick:0,faction:this.sector?'Relay Security':this.wave<4?'Relay Security':this.wave<8?'Archive Constructs':'Reactor Remnants',stagger:0,staggerMax:boss?40:Math.max(6,hp*.7),staggerImmune:0,exposed:0,markLeft:0,boss,theme:boss?(Math.floor(this.wave/5)-1+3)%3:0,pattern:0,dropTimer:10,dead:false,intro:boss?1.3:.45,hurtAt:-10,aim:0,warning:0,state:'enter',targetX:x,targetY:y,dropTimer:10};this.enemies.push(e);return e;
  }
  zone(x,y,r,delay,kind='blast',extra={}){const dangerous=['blast','charge','lane','shockwave'].includes(kind);if(dangerous&&extra.owner&&!this.enemies.find(e=>e.id===extra.owner)?.boss&&this.zones.filter(z=>z.left>0&&['blast','charge','lane','shockwave'].includes(z.kind)).length>=6)return null;if(this.zones.length<24){const z={id:this.id(),x,y,r,left:delay,duration:delay,kind,...extra};this.zones.push(z);return z}return null}
  bossAttack(e,p){
@@ -162,14 +164,15 @@ class Match{
   else{
    e.state=e.warning>0?'windup':'pursuit';let speed=e.speed*(e.slow>0?.4:1),a=angle;
    if(e.warning>0)speed=0;else if(e.kind===2||e.kind===9||e.kind===10){if(d<175){a+=Math.PI;speed*=.8}else if(d<310)speed=0}
-   if(e.kind===8)a+=Math.sin(this.time*3.5+Number(e.id))*.9;
+   if(e.kind===13)a+=Math.sin(this.time*1.8+Number(e.id))*.22;if(e.kind===8)a+=Math.sin(this.time*3.5+Number(e.id))*.9;
    e.x+=Math.cos(a)*speed*dt;e.y+=Math.sin(a)*speed*dt;
    if(e.timer<=0){
     e.timer=3+Math.random()*.6;
     if(e.kind===2){e.warning=.65;this.zone(e.x,e.y,10,.65,'shot',{owner:e.id,angle,count:1,speed:190})}
     if(e.kind===3&&d<200){e.warning=1.2;this.zone(e.x,e.y,105,1.2,'blast',{owner:e.id,bomber:true})}
-    if(e.kind===5){e.warning=.8;this.zone(e.x,e.y,e.r+12,.8,'charge',{owner:e.id,endX:clamp(p.x,24,W-24),endY:clamp(p.y,24,H-24)})}
+    if(e.kind===5||e.kind===14){e.warning=.8;this.zone(e.x,e.y,e.r+12,.8,'charge',{owner:e.id,endX:clamp(p.x,24,W-24),endY:clamp(p.y,24,H-24)})}
     if(e.kind===9){let healed=0;e.linkTarget=null;for(const ally of this.enemies)if(ally!==e&&!ally.boss&&!ally.dead&&ally.hp<ally.max&&Math.hypot(ally.x-e.x,ally.y-e.y)<190){if(healed>=2)break;ally.hp=Math.min(ally.max,ally.hp+2);e.linkTarget=ally.id;e.linkUntil=this.time+1.5;healed++}if(healed)this.event('enemy-heal',e.x,e.y,{radius:190})}
+    if(e.kind===15){e.warning=.75;this.zone(clamp(p.x+Math.cos(this.time)*120,24,W-24),clamp(p.y+Math.sin(this.time)*120,24,H-24),35,.75,'blink',{owner:e.id})}
     if(e.kind===10)this.zone(e.x,e.y,62,1.6,'blast',{owner:e.id,mine:true});
    }
   }
@@ -196,12 +199,13 @@ class Match{
   if(!living.length){if(this.players.some(p=>!p.connected&&p.hp>0))return;this.finish(false);return}
   if(this.sector)this.tickSector();
   if(!this.sector&&!this.enemies.some(e=>!e.dead)&&!this.remaining&&this.time>this.next){this.completeWave();this.wave++;this.remaining=Math.min(24,5+this.wave*2+Math.max(1,living.length)*2);if(this.wave%5===0)this.spawn(true);this.next=this.time+1.5;this.event('wave',W/2,H/2,{wave:this.wave})}
-  if(this.remaining&&this.time>this.next&&this.enemies.length<30){const n=Math.min(this.remaining,3+randomInt(5),30-this.enemies.length);for(let k=0;k<n;k++)this.spawn(false,this.sector?[0,2,5,7,9][randomInt(this.sector.stage>=2?5:3)]:undefined);this.remaining-=n;this.next=this.time+2+Math.random()*2;this.event('incoming',W/2,35,{count:n})}
+  if(this.remaining&&this.time>this.next&&this.enemies.length<30){const n=Math.min(this.remaining,3+randomInt(5),30-this.enemies.length);this.spawnBatch={};for(let k=0;k<n;k++)this.spawn(false);this.spawnBatch=null;this.remaining-=n;this.next=this.time+2+Math.random()*2;this.event('incoming',W/2,35,{count:n})}
   for(const e of this.enemies){e.protectedBy=e.kind===2?this.enemies.find(a=>a.kind===7&&!a.dead&&a.stun<=0&&Math.hypot(a.x-e.x,a.y-e.y)<125)?.id:null;this.tickEnemy(e,living,dt)}
   for(const field of this.fields){field.life-=dt;field.tick-=dt;if(field.tick<=0){field.tick=2.5;for(const p of living)if(Math.hypot(p.x-field.x,p.y-field.y)<110){const amount=this.heal(p,1,field.owner);if(amount){const owner=this.players.find(p=>p.id===field.owner);if(owner)owner.supportActions++}}}}compact(this.fields,f=>f.life>0);for(const ping of this.pings)ping.life-=dt;compact(this.pings,p=>p.life>0);
   for(const z of this.zones){z.left-=dt;if(z.left>0)continue;const owner=this.enemies.find(e=>e.id===z.owner&&!e.dead);
    if(z.owner&&!owner)continue;
-   if(z.kind==='charge'&&owner){const distance=Math.hypot(z.endX-owner.x,z.endY-owner.y)||1,speed=owner.boss?440:350;owner.chargeLeft=Math.min(1,distance/speed);owner.chargeVX=(z.endX-owner.x)/distance*speed;owner.chargeVY=(z.endY-owner.y)/distance*speed;owner.warning=0;continue}
+   if(z.kind==='blink'&&owner){owner.x=z.x;owner.y=z.y;owner.warning=0;owner.recovery=.6;this.event('teleport',owner.x,owner.y,{owner:owner.id});continue}
+   if(z.kind==='charge'&&owner){const distance=Math.hypot(z.endX-owner.x,z.endY-owner.y)||1,speed=(owner.boss?440:350)*enemyDirector.speedMultiplier;owner.chargeLeft=Math.min(1,distance/speed);owner.chargeVX=(z.endX-owner.x)/distance*speed;owner.chargeVY=(z.endY-owner.y)/distance*speed;owner.warning=0;continue}
    if(z.kind==='shot'||z.kind==='volley'){if(owner&&z.kind==='shot')owner.recovery=.65;if(owner)for(let k=0;k<(z.count||1);k++){const fan=z.fan||0,a=z.angle+(fan===Math.PI*2?k*fan/z.count:z.count>1?(k/(z.count-1)-.5)*fan:0);this.hostileShot({x:z.x,y:z.y},a,z.speed||170)}continue}
    for(const p of living){const distance=Math.hypot(p.x-z.x,p.y-z.y),hit=z.kind==='lane'?Math.abs((z.axis==='y'?p.y:p.x)-(z.axis==='y'?z.y:z.x))<z.width/2:z.kind==='shockwave'?distance<z.r+12&&distance>(z.inner||0)-12:distance<z.r+12;if(hit)this.hit(p,2,z.bomber?'bomber':z.kind)}this.event('explode',z.x,z.y,{radius:z.r,enemyKind:z.bomber?3:undefined});
   }compact(this.zones,z=>z.left>0);
@@ -213,7 +217,7 @@ class Match{
    if(s.life<=0)continue;
    if(s.kind==='ricochet-cannon'&&s.bounces<2&&(s.x<6||s.x>W-6||s.y<6||s.y>H-6)){if(s.x<6||s.x>W-6)s.vx=-s.vx;if(s.y<6||s.y>H-6)s.vy=-s.vy;s.x=clamp(s.x,6,W-6);s.y=clamp(s.y,6,H-6);s.bounces++}
    for(const e of this.enemies)if(!e.dead&&!s.hit.includes(e.id)&&segmentDistance(e.x,e.y,ox,oy,s.x,s.y)<e.r+4){
-    s.hit.push(e.id);this.damage(e,s.damage*(s.kind==='auto-shotgun'?Math.max(.35,1-s.age*.65):1),s.owner,s.pierce?'pierce':'hit',{slot:s.slot});
+    s.hit.push(e.id);this.damage(e,s.damage*(s.kind==='auto-shotgun'?Math.max(.35,1-s.age*.65):1),s.owner,s.pierce?'pierce':'hit',{slot:s.slot,armor:s.armor});
     if(['nova','grenade','black','flare','lance'].includes(s.kind)){const r=s.kind==='black'?130:s.kind==='grenade'?116:s.kind==='nova'?104:s.kind==='lance'?62:72;this.splash(e.x,e.y,r,s.damage*.65,s.owner,e,{slot:s.slot});this.event('explode',e.x,e.y,{radius:r});if(s.kind==='black')for(const q of this.enemies)if(!q.dead&&Math.hypot(q.x-e.x,q.y-e.y)<r){q.x+=(e.x-q.x)*.3;q.y+=(e.y-q.y)*.3;q.slow=2}}
     if(s.kind==='arc'){const next=nearest(this.enemies,e.x,e.y,q=>!q.dead&&!s.hit.includes(q.id)&&Math.hypot(q.x-e.x,q.y-e.y)<140);if(next){this.damage(next,s.damage*.8,s.owner,'pierce',{slot:s.slot});this.event('chain',e.x,e.y,{endX:next.x,endY:next.y})}}
     if(s.kind==='emp'){e.stun=Math.max(e.stun,.8);e.slow=2;for(const q of this.enemies)if(Math.hypot(q.x-e.x,q.y-e.y)<72)q.slow=2}
