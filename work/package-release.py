@@ -32,10 +32,13 @@ files += [
     'outputs/UPDATE-6.0.md', 'outputs/SIGNAL-TRACK.md', 'outputs/COOP-EXPANSION-CONTRACT.md',
     'outputs/PERFORMANCE-6.0.md', 'outputs/coop-v6.0-results.json',
     'outputs/coop-v6.0-latency-results.json', 'outputs/coop-v6.0-before-renderer-results.json',
-    'outputs/singleplayer-v6.0-results.json', 'outputs/neon-null-v6.0.html',
+    'outputs/singleplayer-v6.0-results.json', 'outputs/neon-null-v6.3.html',
 ]
 files = list(dict.fromkeys(files))
-target = root / 'outputs/neon-null-v6.0-bundle.zip'
+files += ['multiplayer/enemy-director.cjs','multiplayer/enemy-director-test.cjs','work/immersion-audio.js','work/test-immersion-audio.cjs','work/test-immersion-art.cjs','work/verify-immersion-art.cjs','work/verify-immersion-integrated.cjs','work/verify-room-environments.cjs','work/verify-living-yard.cjs','outputs/UPDATE-6.1.md','outputs/PERFORMANCE-6.1.md','outputs/immersion-before-results.json','outputs/immersion-after-results.json','outputs/coop-v6.1-results.json','outputs/coop-v6.1-initial-results.json']
+files += ['multiplayer/developer-access.cjs','multiplayer/developer-content.cjs','multiplayer/case-catalog.json','multiplayer/developer-test.cjs','work/developer-studio.js','work/test-developer-art.cjs','work/verify-developer-studio.cjs','outputs/UPDATE-6.2.md','outputs/DEVELOPER-STUDIO-SETUP.md','outputs/developer-studio-results.json']
+files += ['multiplayer/workshop-catalog.cjs','work/social-panel.js','work/test-workshop-expanded.cjs','work/verify-workshop-expanded.cjs','work/verify-workshop-integrated.cjs','work/verify-social-panel.cjs','work/verify-social-integrated.cjs','work/test-social-database.cjs','work/test-social-lobbies.cjs','outputs/supabase-social.sql','outputs/SOCIAL-SETUP.md','outputs/UPDATE-6.3.md','outputs/VALIDATION-6.3.md','outputs/workshop-v6.3-results.json','outputs/singleplayer-v6.3-results.json','outputs/coop-v6.3-results.json','outputs/coop-v6.3-initial-results.json']
+target = root / 'outputs/neon-null-v6.3-bundle.zip'
 with ZipFile(target, 'w', ZIP_DEFLATED) as archive:
     for name in files:
         archive.write(root / name, name)
