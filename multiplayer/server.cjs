@@ -105,6 +105,12 @@ function createGameServer(options={}){
 
     const data=await body(req);
 
+    if(pathname==='/api/developer/gift'){
+     if(!service)return send(res,503,{error:'Gift service not configured. The server owner must add the private SUPABASE_SERVICE_ROLE_KEY in Render only.'});
+     if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(data.target||'')||!['weapon','operator'].includes(data.kind)||!Number.isInteger(data.quantity)||data.quantity<1||data.quantity>100||typeof data.note!=='string'||data.note.length>160||!/^[0-9a-f-]{36}$/i.test(data.requestId||''))return send(res,400,{error:'Invalid gift request'});
+     const response=await fetch(url+'/rest/v1/rpc/neon_issue_case_gift',{method:'POST',headers:{apikey:service,Authorization:'Bearer '+service,'Content-Type':'application/json'},body:JSON.stringify({actor:ident.user,recipient:data.target,gift_kind:data.kind,amount:data.quantity,request_id:data.requestId,gift_note:data.note}),signal:AbortSignal.timeout(8000)});
+     const result=await response.json();if(!response.ok)return send(res,response.status===429?429:400,{error:result.code==='PGRST202'?'Run supabase-profiles-gifts.sql first':result.message||'Could not send gift'});return send(res,200,result);
+    }
     if(pathname==='/api/developer/roll')return send(res,200,developers.roll(data));
 
     if(pathname==='/api/developer/equip'){const outfit=developers.equip(ident.user,data);for(const active of sessions.values())if(active.user===ident.user){active.appearance=outfit?.appearance||active.normalAppearance||'mono';active.weaponSkins={...(active.normalWeaponSkins||{}),...(outfit?.weaponSkins||{})};active.developerUntil=outfit?.expires||0;const room=roomOf(active),player=room?.match?.players.find(p=>p.id===active.id);if(player){player.appearance=active.appearance;player.weaponSkins=active.weaponSkins;for(const g of player.gear)g.skinId=active.weaponSkins[String(g.weaponIndex)]||null}if(room)emit(room,true)}return send(res,200,{ok:true,testOnly:true})}

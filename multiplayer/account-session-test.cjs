@@ -13,4 +13,11 @@ async function check(remember){
  assert.equal(JSON.parse((remember?local:tab).getItem(remember?'nn.remembered.session':'nn.session')).refresh_token,'rotated-refresh');
  assert.equal((remember?tab:local).getItem(remember?'nn.session':'nn.remembered.session'),null,'Session storage scope must remain unchanged');
 }
-(async()=>{await check(false);await check(true);console.log('PASS account session refresh: concurrent callers share one refresh, rotated tokens persist in tab or remembered scope, no live credentials used')})().catch(error=>{console.error(error);process.exitCode=1});
+async function expiredCheck(network=false){
+ const project='https://expired-test.supabase.co',old={project,access_token:'old',refresh_token:'missing',expires_at:1,user:{id:'pilot'}},prefix='nn.account.'+encodeURIComponent(project)+'.pilot.';
+ const local=storage({'nn.cloud.config':JSON.stringify({url:project,key:'sb_publishable_test'}),'nn.remembered.session':JSON.stringify(old),[prefix+'neonNullMissionScrap']:'765',[prefix+'neonNullProgression']:'{"owned":["mono","amber"]}'}),tab=storage({}),window={};let requests=0;
+ vm.runInNewContext(source,{window,localStorage:local,sessionStorage:tab,fetch:async()=>{requests++;if(network)throw TypeError('Network offline');return{ok:false,status:400,text:async()=>JSON.stringify({code:'refresh_token_not_found',msg:'Invalid Refresh Token: Refresh Token Not Found'})}},AbortController,setTimeout,clearTimeout,document:{getElementById:()=>null},console,URL,Map,Date});
+ await assert.rejects(window.NeonSave.accessToken(),network?/Network offline/:/sign-in has expired/);await assert.rejects(window.NeonSave.accessToken(),network?/Network offline/:/sign-in has expired/);
+ assert.equal(requests,network?2:1);assert.equal(window.NeonSave.storage.getItem('neonNullMissionScrap'),'765');assert.equal(window.NeonSave.storage.getItem('neonNullProgression'),'{"owned":["mono","amber"]}');assert.equal(local.getItem('nn.remembered.session')!==null,network);assert.equal(!!window.NeonSave.session(),network);
+}
+(async()=>{await check(false);await check(true);await expiredCheck();await expiredCheck(true);console.log('PASS shared token refresh, rotated token storage scopes, invalid refresh recovery without retry loops or save loss, and transient-network session retention')})().catch(error=>{console.error(error);process.exitCode=1});
