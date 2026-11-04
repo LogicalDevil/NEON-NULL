@@ -38,7 +38,8 @@ files = list(dict.fromkeys(files))
 files += ['multiplayer/enemy-director.cjs','multiplayer/enemy-director-test.cjs','work/immersion-audio.js','work/test-immersion-audio.cjs','work/test-immersion-art.cjs','work/verify-immersion-art.cjs','work/verify-immersion-integrated.cjs','work/verify-room-environments.cjs','work/verify-living-yard.cjs','outputs/UPDATE-6.1.md','outputs/PERFORMANCE-6.1.md','outputs/immersion-before-results.json','outputs/immersion-after-results.json','outputs/coop-v6.1-results.json','outputs/coop-v6.1-initial-results.json']
 files += ['multiplayer/developer-access.cjs','multiplayer/developer-content.cjs','multiplayer/case-catalog.json','multiplayer/developer-test.cjs','work/developer-studio.js','work/test-developer-art.cjs','work/verify-developer-studio.cjs','outputs/UPDATE-6.2.md','outputs/DEVELOPER-STUDIO-SETUP.md','outputs/developer-studio-results.json']
 files += ['multiplayer/workshop-catalog.cjs','work/social-panel.js','work/test-workshop-expanded.cjs','work/verify-workshop-expanded.cjs','work/verify-workshop-integrated.cjs','work/verify-social-panel.cjs','work/verify-social-integrated.cjs','work/test-social-database.cjs','work/test-social-lobbies.cjs','outputs/supabase-social.sql','outputs/SOCIAL-SETUP.md','outputs/UPDATE-6.3.md','outputs/VALIDATION-6.3.md','outputs/workshop-v6.3-results.json','outputs/singleplayer-v6.3-results.json','outputs/coop-v6.3-results.json','outputs/coop-v6.3-initial-results.json']
-target = root / 'outputs/neon-null-v6.3-bundle.zip'
+files += ['work/profile-panel.js','work/test-profiles-gifts.cjs','work/verify-profiles-integrated.cjs','outputs/supabase-profiles-gifts.sql','outputs/PROFILES-GIFTS-SETUP.md','outputs/UPDATE-6.4.md','outputs/neon-null-v6.4.html']
+target = root / 'outputs/neon-null-v6.4-bundle.zip'
 with ZipFile(target, 'w', ZIP_DEFLATED) as archive:
     for name in files:
         archive.write(root / name, name)
