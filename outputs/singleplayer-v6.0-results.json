@@ -1,19 +1,19 @@
 {
-  "version": "6.0",
-  "durationSeconds": 12.895,
-  "profileSeconds": 12,
-  "frames": 728,
-  "frameP50": 16.69999999999891,
-  "frameP95": 16.900000000000546,
-  "renderP50": 2,
-  "renderP95": 4.4000000059604645,
+  "version": "6.5",
+  "durationSeconds": 30.935,
+  "profileSeconds": 30,
+  "frames": 1814,
+  "frameP50": 16.699999999999818,
+  "frameP95": 17.100000000000364,
+  "renderP50": 1.5999999940395355,
+  "renderP95": 2.9000000059604645,
   "load": {
-    "enemyMin": 27,
+    "enemyMin": 25,
     "enemyMax": 30,
-    "shotMax": 5,
-    "particleMax": 73
+    "shotMax": 6,
+    "particleMax": 103
   },
-  "heapBytes": 6358241,
+  "heapBytes": 8693583,
   "regressions": "passed",
   "notes": [
     "One headless Chrome process, localhost-free fixture of actual engine; 30 varied enemies maintained, invulnerability and reserve refills used.",

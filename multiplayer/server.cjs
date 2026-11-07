@@ -12,6 +12,7 @@ const cosmeticManifest=require('./skin-manifest.json'),operatorIds=new Set(cosme
 
 function validatedCosmetics(raw){const owned=new Set(['mono',...(Array.isArray(raw?.owned)?raw.owned.filter(id=>operatorIds.has(id)):[])]),ownedSkins=new Set(Array.isArray(raw?.ownedSkins)?raw.ownedSkins:[]),weaponSkins={};if(raw?.equippedSkins&&typeof raw.equippedSkins==='object'&&!Array.isArray(raw.equippedSkins))for(const [index,id]of Object.entries(raw.equippedSkins)){const n=Number(index);if(Number.isInteger(n)&&n>=0&&n<26&&ownedSkins.has(id)&&Object.prototype.hasOwnProperty.call(cosmeticManifest.skins,id)&&cosmeticManifest.skins[id]===n)weaponSkins[String(n)]=id}return {appearance:operatorIds.has(raw?.selected)&&owned.has(raw.selected)?raw.selected:'mono',weaponSkins}}
 
+const arsenal=require('./arsenal-catalog.cjs');
 const VERSION='5.2',root=path.resolve(__dirname,'..'),catalog=JSON.parse(fs.readFileSync(path.join(__dirname,'catalog.json'),'utf8'));
 
 function createGameServer(options={}){
@@ -42,7 +43,7 @@ function createGameServer(options={}){
 
  function writeStream(s,message){const stream=s.stream;if(!stream||stream.destroyed||stream.writableEnded)return;if(s.blocked){s.pending=message;metrics.backpressureDrops++;return}metrics.maxBufferBytes=Math.max(metrics.maxBufferBytes,stream.writableLength);if(stream.writableLength>131072){stream.destroy();return}if(!stream.write(message)){s.blocked=true;s.blockedSince=Date.now()}}
 
- function emit(r,force=false){const lobby=roster(r),signature=r.state==='playing'?null:JSON.stringify([lobby.state,Math.ceil(lobby.countdown),lobby.leader,lobby.players,lobby.ranked]);if(!force&&signature&&signature===r.lastSignature)return;r.lastSignature=signature;const match=r.match?.snapshot()||null;if(match){if(compactSnapshots){for(const player of match.players)player.gear=player.gear.map(({mag,reserve,reload,cooldown,cooldownMax,modId})=>({mag,reserve,reload,cooldown,cooldownMax,modId}));match.shots=match.shots.map(s=>[s.id,s.x,s.y,s.owner,s.skinId,s.kind,s.angle]);match.hostile=match.hostile.map(s=>[s.id,s.x,s.y,s.vx,s.vy]);match.enemies=match.enemies.map(e=>[e.id,e.kind,e.x,e.y,e.hp,e.max,e.r,e.boss,e.theme,e.state,e.aim,e.warning,e.intro,e.shielded,e.hurt,e.type,e.name,e.faction,e.stagger,e.staggerMax,e.exposed,e.marked])}if(!force)match.events=match.events.filter(event=>event.id>(r.eventCursor||0));r.eventCursor=r.match.eventId}const sequence=(r.sequence||0)+1;r.sequence=sequence;const message='data: '+JSON.stringify({sequence,sentAt:Date.now(),packed:compactSnapshots?1:0,lobby,match})+'\n\n';metrics.lastSnapshotBytes=Buffer.byteLength(message);metrics.totalSnapshotBytes+=metrics.lastSnapshotBytes;metrics.maxSnapshotBytes=Math.max(metrics.maxSnapshotBytes,metrics.lastSnapshotBytes);metrics.broadcasts++;for(const id of r.members){const s=sessions.get(id);if(s)writeStream(s,message)}}
+ function emit(r,force=false){const lobby=roster(r),signature=r.state==='playing'?null:JSON.stringify([lobby.state,Math.ceil(lobby.countdown),lobby.leader,lobby.players,lobby.ranked]);if(!force&&signature&&signature===r.lastSignature)return;r.lastSignature=signature;const match=r.match?.snapshot()||null;if(match){if(compactSnapshots){for(const player of match.players)player.gear=player.gear.map(({mag,reserve,reload,cooldown,cooldownMax,modId,heat,charge})=>({mag,reserve,reload,cooldown,cooldownMax,modId,heat,charge}));match.shots=match.shots.map(s=>[s.id,s.x,s.y,s.owner,s.skinId,s.kind,s.angle]);match.hostile=match.hostile.map(s=>[s.id,s.x,s.y,s.vx,s.vy]);match.enemies=match.enemies.map(e=>[e.id,e.kind,e.x,e.y,e.hp,e.max,e.r,e.boss,e.theme,e.state,e.aim,e.warning,e.intro,e.shielded,e.hurt,e.type,e.name,e.faction,e.stagger,e.staggerMax,e.exposed,e.marked])}if(!force)match.events=match.events.filter(event=>event.id>(r.eventCursor||0));r.eventCursor=r.match.eventId}const sequence=(r.sequence||0)+1;r.sequence=sequence;const message='data: '+JSON.stringify({sequence,sentAt:Date.now(),packed:compactSnapshots?1:0,lobby,match})+'\n\n';metrics.lastSnapshotBytes=Buffer.byteLength(message);metrics.totalSnapshotBytes+=metrics.lastSnapshotBytes;metrics.maxSnapshotBytes=Math.max(metrics.maxSnapshotBytes,metrics.lastSnapshotBytes);metrics.broadcasts++;for(const id of r.members){const s=sessions.get(id);if(s)writeStream(s,message)}}
 
  function transferLeader(r){const leader=sessions.get(r.leader);if(!r.members.includes(r.leader)||!leader?.stream)r.leader=r.members.find(id=>sessions.get(id)?.stream)||r.members[0]}
 
@@ -58,7 +59,10 @@ function createGameServer(options={}){
 
  const server=http.createServer(async(req,res)=>{
 
-  const origin=req.headers.origin,hostOrigin='http'+(req.headers['x-forwarded-proto']==='https'?'s':'')+'://'+req.headers.host;
+  const origin=req.headers.origin;
+  const forwardedProtocol=String(req.headers['x-forwarded-proto']||'').split(',')[0].trim().toLowerCase();
+  const protocol=req.socket.encrypted||forwardedProtocol==='https'?'https':'http';
+  const hostOrigin=protocol+'://'+req.headers.host;
 
   if(origin&&origin!==hostOrigin&&!allowed.includes(origin)&&!(dev&&origin==='null'))return send(res,403,{error:'Origin not allowed — open the game from this server'});
 
@@ -101,15 +105,29 @@ function createGameServer(options={}){
 
     developers.refresh(ident.user);
 
-    if(pathname==='/api/developer/access'){await body(req);return send(res,200,{granted:true,leaseSeconds:60,catalog:developers.catalog()})}
+    if(pathname==='/api/developer/access'){await body(req);return send(res,200,{granted:true,leaseSeconds:60,giftingConfigured:Boolean(service),catalog:developers.catalog()})}
 
     const data=await body(req);
 
     if(pathname==='/api/developer/gift'){
      if(!service)return send(res,503,{error:'Gift service not configured. The server owner must add the private SUPABASE_SERVICE_ROLE_KEY in Render only.'});
      if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(data.target||'')||!['weapon','operator'].includes(data.kind)||!Number.isInteger(data.quantity)||data.quantity<1||data.quantity>100||typeof data.note!=='string'||data.note.length>160||!/^[0-9a-f-]{36}$/i.test(data.requestId||''))return send(res,400,{error:'Invalid gift request'});
-     const response=await fetch(url+'/rest/v1/rpc/neon_issue_case_gift',{method:'POST',headers:{apikey:service,Authorization:'Bearer '+service,'Content-Type':'application/json'},body:JSON.stringify({actor:ident.user,recipient:data.target,gift_kind:data.kind,amount:data.quantity,request_id:data.requestId,gift_note:data.note}),signal:AbortSignal.timeout(8000)});
-     const result=await response.json();if(!response.ok)return send(res,response.status===429?429:400,{error:result.code==='PGRST202'?'Run supabase-profiles-gifts.sql first':result.message||'Could not send gift'});return send(res,200,result);
+     let response;
+     try{
+      response=await fetch(url+'/rest/v1/rpc/neon_issue_case_gift',{
+       method:'POST',
+       headers:{apikey:service,Authorization:'Bearer '+service,'Content-Type':'application/json'},
+       body:JSON.stringify({actor:ident.user,recipient:data.target,gift_kind:data.kind,amount:data.quantity,request_id:data.requestId,gift_note:data.note}),
+       signal:AbortSignal.timeout(8000)
+      });
+     }catch{
+      return send(res,502,{error:'Supabase did not confirm delivery. Retry this same gift to check or complete delivery.'});
+     }
+     if(response.status===401||response.status===403)return send(res,503,{error:'Supabase refused the gift server credentials. Check SUPABASE_SERVICE_ROLE_KEY in the Render environment.'});
+     const result=await response.json().catch(()=>null);
+     if(!result)return send(res,502,{error:'Supabase returned an unreadable gift receipt. Retry this same gift.'});
+     if(!response.ok)return send(res,response.status===429?429:400,{error:result.code==='PGRST202'?'Run supabase-profiles-gifts.sql in the game’s Supabase project first':result.message||'Could not send gift'});
+     return send(res,200,result);
     }
     if(pathname==='/api/developer/roll')return send(res,200,developers.roll(data));
 
@@ -153,7 +171,11 @@ function createGameServer(options={}){
 
    const r=roomOf(s);if(!r)throw Error('Join a room first');
 
-   if(pathname==='/api/ready'){if(r.state!=='lobby')throw Error('Match already starting');if(!s.stream)throw Error('Waiting for live connection');s.gear=catalog.map((items,i)=>Math.max(0,Math.min(items.length-1,Math.floor(Number(b.gear?.[i])||0))));s.mods=catalog.map((items,i)=>modifications.validate(b.mods?.[i],items[s.gear[i]]));s.role=['vanguard','engineer','scout','medic'].includes(b.role)?b.role:'vanguard';s.ready=b.ready===true;emit(r)}
+   if(pathname==='/api/ready'){if(r.state!=='lobby')throw Error('Match already starting');if(!s.stream)throw Error('Waiting for live connection');
+    const gear=catalog.map((items,i)=>Number.isInteger(b.gear?.[i])&&items[b.gear[i]]?b.gear[i]:0);
+    const primary=catalog[0][gear[0]],faction=arsenal.factionById(b.faction||primary.faction||'default');
+    if(!faction||gear.some((index,slot)=>(catalog[slot][index].faction||'default')!==faction.id))throw Error('Choose four items from the same faction');
+    s.gear=gear;s.mods=catalog.map((items,i)=>modifications.validate(b.mods?.[i],items[gear[i]]));s.role=['vanguard','engineer','scout','medic'].includes(b.role)?b.role:'vanguard';s.ready=b.ready===true;emit(r)}
 
    else if(pathname==='/api/start'){if(r.leader!==s.id)throw Error('Only the leader can start');if(r.state!=='lobby'||r.members.length<2||!r.members.every(id=>sessions.get(id).ready&&sessions.get(id).stream))throw Error('Need 2–4 connected and ready players');r.state='countdown';r.countdown=3;emit(r)}
 

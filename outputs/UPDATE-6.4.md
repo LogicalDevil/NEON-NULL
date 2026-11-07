@@ -12,3 +12,5 @@ Requires `supabase-profiles-gifts.sql` after the existing social migration. Deve
 ## Sign-in recovery hotfix — 4 November 2026
 
 Expired or revoked refresh tokens now stop retrying and offer a fresh sign-in while retaining account-scoped local saves. Transient network errors retain the session. Refresh requests share a browser lock when supported and reuse newer stored tokens from other tabs. The profile screen includes a Sign In / Switch Account recovery action.
+
+Gifting visibility hotfix: recipient profiles now verify developer authorization directly with the server instead of relying on the cached Developer Studio flag. The section stays visible on other profiles with an explicit verification button and inline failure details.

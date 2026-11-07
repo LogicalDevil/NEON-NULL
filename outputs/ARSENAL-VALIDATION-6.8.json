@@ -1,0 +1,3369 @@
+{
+  "build": "v6.8",
+  "sha256": "600961050ebb1e53fd12d6c7b3ecf684b84b24ebd716051e9e78d8df457ab99c",
+  "checks": [
+    {
+      "id": "photon-carbine",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "photon-carbine",
+      "kit": "photon-carbine-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "photon-carbine",
+      "kit": "photon-carbine-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "prism-lance",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "prism-lance",
+      "kit": "prism-lance-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "prism-lance",
+      "kit": "prism-lance-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "vector-railgun",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "vector-railgun",
+      "kit": "vector-railgun-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "vector-railgun",
+      "kit": "vector-railgun-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "line-musket",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "line-musket",
+      "kit": "line-musket-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "line-musket",
+      "kit": "line-musket-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "rifled-carbine",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "rifled-carbine",
+      "kit": "rifled-carbine-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "rifled-carbine",
+      "kit": "rifled-carbine-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "deck-blunderbuss",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "deck-blunderbuss",
+      "kit": "deck-blunderbuss-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "deck-blunderbuss",
+      "kit": "deck-blunderbuss-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "trail-repeater",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "trail-repeater",
+      "kit": "trail-repeater-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "trail-repeater",
+      "kit": "trail-repeater-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "coach-gun",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "coach-gun",
+      "kit": "coach-gun-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "coach-gun",
+      "kit": "coach-gun-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "longhorn-rifle",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "longhorn-rifle",
+      "kit": "longhorn-rifle-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "longhorn-rifle",
+      "kit": "longhorn-rifle-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "steam-riveter",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "steam-riveter",
+      "kit": "steam-riveter-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "steam-riveter",
+      "kit": "steam-riveter-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "pressure-coil",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "pressure-coil",
+      "kit": "pressure-coil-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "pressure-coil",
+      "kit": "pressure-coil-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "gearcaster",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "gearcaster",
+      "kit": "gearcaster-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "gearcaster",
+      "kit": "gearcaster-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-helix-driver",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-helix-driver",
+      "kit": "spectrum-helix-driver-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-helix-driver",
+      "kit": "spectrum-helix-driver-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-trinary-pulse",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-trinary-pulse",
+      "kit": "spectrum-trinary-pulse-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-trinary-pulse",
+      "kit": "spectrum-trinary-pulse-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-sunspot-projector",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-sunspot-projector",
+      "kit": "spectrum-sunspot-projector-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-sunspot-projector",
+      "kit": "spectrum-sunspot-projector-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-zero-line-rifle",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-zero-line-rifle",
+      "kit": "spectrum-zero-line-rifle-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-zero-line-rifle",
+      "kit": "spectrum-zero-line-rifle-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-iceglass-refractor",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-iceglass-refractor",
+      "kit": "spectrum-iceglass-refractor-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-iceglass-refractor",
+      "kit": "spectrum-iceglass-refractor-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-lattice-disruptor",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-lattice-disruptor",
+      "kit": "spectrum-lattice-disruptor-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-lattice-disruptor",
+      "kit": "spectrum-lattice-disruptor-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-null-needle",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-null-needle",
+      "kit": "spectrum-null-needle-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-null-needle",
+      "kit": "spectrum-null-needle-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-volley-musket",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-volley-musket",
+      "kit": "blackpowder-volley-musket-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-volley-musket",
+      "kit": "blackpowder-volley-musket-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-breech-needle",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-breech-needle",
+      "kit": "blackpowder-breech-needle-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-breech-needle",
+      "kit": "blackpowder-breech-needle-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-fortress-wall-gun",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-fortress-wall-gun",
+      "kit": "blackpowder-fortress-wall-gun-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-fortress-wall-gun",
+      "kit": "blackpowder-fortress-wall-gun-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-swivel-cannon",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-swivel-cannon",
+      "kit": "blackpowder-swivel-cannon-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-swivel-cannon",
+      "kit": "blackpowder-swivel-cannon-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-fowling-piece",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-fowling-piece",
+      "kit": "blackpowder-fowling-piece-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-fowling-piece",
+      "kit": "blackpowder-fowling-piece-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-puckle-gun",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-puckle-gun",
+      "kit": "blackpowder-puckle-gun-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-puckle-gun",
+      "kit": "blackpowder-puckle-gun-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-coach-mortar",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-coach-mortar",
+      "kit": "blackpowder-coach-mortar-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-coach-mortar",
+      "kit": "blackpowder-coach-mortar-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-buffalo-sharps",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-buffalo-sharps",
+      "kit": "frontier-buffalo-sharps-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-buffalo-sharps",
+      "kit": "frontier-buffalo-sharps-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-pump-scattergun",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-pump-scattergun",
+      "kit": "frontier-pump-scattergun-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-pump-scattergun",
+      "kit": "frontier-pump-scattergun-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-express-repeater",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-express-repeater",
+      "kit": "frontier-express-repeater-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-express-repeater",
+      "kit": "frontier-express-repeater-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-side-by-side-express",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-side-by-side-express",
+      "kit": "frontier-side-by-side-express-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-side-by-side-express",
+      "kit": "frontier-side-by-side-express-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-quarry-rifle",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-quarry-rifle",
+      "kit": "frontier-quarry-rifle-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-quarry-rifle",
+      "kit": "frontier-quarry-rifle-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-prospectors-slugger",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-prospectors-slugger",
+      "kit": "frontier-prospectors-slugger-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-prospectors-slugger",
+      "kit": "frontier-prospectors-slugger-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-claim-jumper",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-claim-jumper",
+      "kit": "frontier-claim-jumper-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-claim-jumper",
+      "kit": "frontier-claim-jumper-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-rotary-stapler",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-rotary-stapler",
+      "kit": "brassworks-rotary-stapler-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-rotary-stapler",
+      "kit": "brassworks-rotary-stapler-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-boiler-bell",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-boiler-bell",
+      "kit": "brassworks-boiler-bell-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-boiler-bell",
+      "kit": "brassworks-boiler-bell-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-flywheel-rebounder",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-flywheel-rebounder",
+      "kit": "brassworks-flywheel-rebounder-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-flywheel-rebounder",
+      "kit": "brassworks-flywheel-rebounder-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-hammerlock-driver",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-hammerlock-driver",
+      "kit": "brassworks-hammerlock-driver-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-hammerlock-driver",
+      "kit": "brassworks-hammerlock-driver-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-pressure-fork",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-pressure-fork",
+      "kit": "brassworks-pressure-fork-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-pressure-fork",
+      "kit": "brassworks-pressure-fork-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-slag-lobber",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-slag-lobber",
+      "kit": "brassworks-slag-lobber-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-slag-lobber",
+      "kit": "brassworks-slag-lobber-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-governor-needle",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-governor-needle",
+      "kit": "brassworks-governor-needle-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-governor-needle",
+      "kit": "brassworks-governor-needle-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "ion-sidearm",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "ion-sidearm",
+      "kit": "ion-sidearm-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "ion-sidearm",
+      "kit": "ion-sidearm-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "arc-projector",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "arc-projector",
+      "kit": "arc-projector-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "arc-projector",
+      "kit": "arc-projector-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "flintlock-pistol",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "flintlock-pistol",
+      "kit": "flintlock-pistol-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "flintlock-pistol",
+      "kit": "flintlock-pistol-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "double-barrel-flintlock",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "double-barrel-flintlock",
+      "kit": "double-barrel-flintlock-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "double-barrel-flintlock",
+      "kit": "double-barrel-flintlock-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "marshal-revolver",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "marshal-revolver",
+      "kit": "marshal-revolver-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "marshal-revolver",
+      "kit": "marshal-revolver-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "pocket-derringer",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "pocket-derringer",
+      "kit": "pocket-derringer-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "pocket-derringer",
+      "kit": "pocket-derringer-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "pocket-piston",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "pocket-piston",
+      "kit": "pocket-piston-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "pocket-piston",
+      "kit": "pocket-piston-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "valve-sprayer",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "valve-sprayer",
+      "kit": "valve-sprayer-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "valve-sprayer",
+      "kit": "valve-sprayer-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-quark-needle",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-quark-needle",
+      "kit": "spectrum-quark-needle-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-quark-needle",
+      "kit": "spectrum-quark-needle-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-beacon-pistol",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-beacon-pistol",
+      "kit": "spectrum-beacon-pistol-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-beacon-pistol",
+      "kit": "spectrum-beacon-pistol-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-twin-ion-splitter",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-twin-ion-splitter",
+      "kit": "spectrum-twin-ion-splitter-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-twin-ion-splitter",
+      "kit": "spectrum-twin-ion-splitter-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-phase-skip",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-phase-skip",
+      "kit": "spectrum-phase-skip-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-phase-skip",
+      "kit": "spectrum-phase-skip-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-afterimage-pistol",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-afterimage-pistol",
+      "kit": "spectrum-afterimage-pistol-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-afterimage-pistol",
+      "kit": "spectrum-afterimage-pistol-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-cryo-cell",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-cryo-cell",
+      "kit": "spectrum-cryo-cell-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-cryo-cell",
+      "kit": "spectrum-cryo-cell-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-static-dart",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-static-dart",
+      "kit": "spectrum-static-dart-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-static-dart",
+      "kit": "spectrum-static-dart-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-flare-matrix",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-flare-matrix",
+      "kit": "spectrum-flare-matrix-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-flare-matrix",
+      "kit": "spectrum-flare-matrix-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-turn-off-pistol",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-turn-off-pistol",
+      "kit": "blackpowder-turn-off-pistol-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-turn-off-pistol",
+      "kit": "blackpowder-turn-off-pistol-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-pepperbox",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-pepperbox",
+      "kit": "blackpowder-pepperbox-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-pepperbox",
+      "kit": "blackpowder-pepperbox-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-duckfoot-pistol",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-duckfoot-pistol",
+      "kit": "blackpowder-duckfoot-pistol-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-duckfoot-pistol",
+      "kit": "blackpowder-duckfoot-pistol-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-signal-flintlock",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-signal-flintlock",
+      "kit": "blackpowder-signal-flintlock-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-signal-flintlock",
+      "kit": "blackpowder-signal-flintlock-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-horse-pistol",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-horse-pistol",
+      "kit": "blackpowder-horse-pistol-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-horse-pistol",
+      "kit": "blackpowder-horse-pistol-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-rook-pistol",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-rook-pistol",
+      "kit": "blackpowder-rook-pistol-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-rook-pistol",
+      "kit": "blackpowder-rook-pistol-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-grenado-thrower",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-grenado-thrower",
+      "kit": "blackpowder-grenado-thrower-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-grenado-thrower",
+      "kit": "blackpowder-grenado-thrower-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-spring-dirk-pistol",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-spring-dirk-pistol",
+      "kit": "blackpowder-spring-dirk-pistol-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-spring-dirk-pistol",
+      "kit": "blackpowder-spring-dirk-pistol-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-schofield-breaktop",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-schofield-breaktop",
+      "kit": "frontier-schofield-breaktop-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-schofield-breaktop",
+      "kit": "frontier-schofield-breaktop-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-snake-shot-sixgun",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-snake-shot-sixgun",
+      "kit": "frontier-snake-shot-sixgun-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-snake-shot-sixgun",
+      "kit": "frontier-snake-shot-sixgun-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-trail-scouts-pistol",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-trail-scouts-pistol",
+      "kit": "frontier-trail-scouts-pistol-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-trail-scouts-pistol",
+      "kit": "frontier-trail-scouts-pistol-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-gamblers-twin",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-gamblers-twin",
+      "kit": "frontier-gamblers-twin-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-gamblers-twin",
+      "kit": "frontier-gamblers-twin-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-canyon-ricochet",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-canyon-ricochet",
+      "kit": "frontier-canyon-ricochet-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-canyon-ricochet",
+      "kit": "frontier-canyon-ricochet-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-buntline-special",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-buntline-special",
+      "kit": "frontier-buntline-special-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-buntline-special",
+      "kit": "frontier-buntline-special-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-belt-pepperbox",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-belt-pepperbox",
+      "kit": "frontier-belt-pepperbox-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-belt-pepperbox",
+      "kit": "frontier-belt-pepperbox-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-survey-flare-gun",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-survey-flare-gun",
+      "kit": "frontier-survey-flare-gun-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-survey-flare-gun",
+      "kit": "frontier-survey-flare-gun-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-escapement-repeater",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-escapement-repeater",
+      "kit": "brassworks-escapement-repeater-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-escapement-repeater",
+      "kit": "brassworks-escapement-repeater-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-twin-valve",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-twin-valve",
+      "kit": "brassworks-twin-valve-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-twin-valve",
+      "kit": "brassworks-twin-valve-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-bearing-pistol",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-bearing-pistol",
+      "kit": "brassworks-bearing-pistol-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-bearing-pistol",
+      "kit": "brassworks-bearing-pistol-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-bellows-dart",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-bellows-dart",
+      "kit": "brassworks-bellows-dart-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-bellows-dart",
+      "kit": "brassworks-bellows-dart-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-copper-spotter",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-copper-spotter",
+      "kit": "brassworks-copper-spotter-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-copper-spotter",
+      "kit": "brassworks-copper-spotter-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-piston-popper",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-piston-popper",
+      "kit": "brassworks-piston-popper-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-piston-popper",
+      "kit": "brassworks-piston-popper-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-soot-nozzle",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-soot-nozzle",
+      "kit": "brassworks-soot-nozzle-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-soot-nozzle",
+      "kit": "brassworks-soot-nozzle-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-condensate-thrower",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-condensate-thrower",
+      "kit": "brassworks-condensate-thrower-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-condensate-thrower",
+      "kit": "brassworks-condensate-thrower-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "phase-blade",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "phase-blade",
+      "kit": "phase-blade-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "phase-blade",
+      "kit": "phase-blade-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "graviton-maul",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "graviton-maul",
+      "kit": "graviton-maul-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "graviton-maul",
+      "kit": "graviton-maul-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "infantry-bayonet",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "infantry-bayonet",
+      "kit": "infantry-bayonet-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "infantry-bayonet",
+      "kit": "infantry-bayonet-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "officers-sabre",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "officers-sabre",
+      "kit": "officers-sabre-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "officers-sabre",
+      "kit": "officers-sabre-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "bowie-knife",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "bowie-knife",
+      "kit": "bowie-knife-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "bowie-knife",
+      "kit": "bowie-knife-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "ranch-hatchet",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "ranch-hatchet",
+      "kit": "ranch-hatchet-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "ranch-hatchet",
+      "kit": "ranch-hatchet-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "ratchet-wrench",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "ratchet-wrench",
+      "kit": "ratchet-wrench-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "ratchet-wrench",
+      "kit": "ratchet-wrench-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "piston-pike",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "piston-pike",
+      "kit": "piston-pike-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "piston-pike",
+      "kit": "piston-pike-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-monofilament-foil",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-monofilament-foil",
+      "kit": "spectrum-monofilament-foil-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-monofilament-foil",
+      "kit": "spectrum-monofilament-foil-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-photon-tonfa",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-photon-tonfa",
+      "kit": "spectrum-photon-tonfa-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-photon-tonfa",
+      "kit": "spectrum-photon-tonfa-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-ion-talons",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-ion-talons",
+      "kit": "spectrum-ion-talons-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-ion-talons",
+      "kit": "spectrum-ion-talons-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-vector-glaive",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-vector-glaive",
+      "kit": "spectrum-vector-glaive-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-vector-glaive",
+      "kit": "spectrum-vector-glaive-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-flux-anchor",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-flux-anchor",
+      "kit": "spectrum-flux-anchor-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-flux-anchor",
+      "kit": "spectrum-flux-anchor-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-null-baton",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-null-baton",
+      "kit": "spectrum-null-baton-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-null-baton",
+      "kit": "spectrum-null-baton-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-lens-axe",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-lens-axe",
+      "kit": "spectrum-lens-axe-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-lens-axe",
+      "kit": "spectrum-lens-axe-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-pulse-gauntlet",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-pulse-gauntlet",
+      "kit": "spectrum-pulse-gauntlet-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-pulse-gauntlet",
+      "kit": "spectrum-pulse-gauntlet-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-hanger-sword",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-hanger-sword",
+      "kit": "blackpowder-hanger-sword-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-hanger-sword",
+      "kit": "blackpowder-hanger-sword-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-spontoon",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-spontoon",
+      "kit": "blackpowder-spontoon-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-spontoon",
+      "kit": "blackpowder-spontoon-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-naval-boarding-axe",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-naval-boarding-axe",
+      "kit": "blackpowder-naval-boarding-axe-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-naval-boarding-axe",
+      "kit": "blackpowder-naval-boarding-axe-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-iron-ramrod",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-iron-ramrod",
+      "kit": "blackpowder-iron-ramrod-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-iron-ramrod",
+      "kit": "blackpowder-iron-ramrod-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-pike-hook",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-pike-hook",
+      "kit": "blackpowder-pike-hook-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-pike-hook",
+      "kit": "blackpowder-pike-hook-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-officers-smallsword",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-officers-smallsword",
+      "kit": "blackpowder-officers-smallsword-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-officers-smallsword",
+      "kit": "blackpowder-officers-smallsword-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-powder-mallet",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-powder-mallet",
+      "kit": "blackpowder-powder-mallet-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-powder-mallet",
+      "kit": "blackpowder-powder-mallet-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-dragoon-pallash",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-dragoon-pallash",
+      "kit": "blackpowder-dragoon-pallash-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-dragoon-pallash",
+      "kit": "blackpowder-dragoon-pallash-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-rail-spike",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-rail-spike",
+      "kit": "frontier-rail-spike-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-rail-spike",
+      "kit": "frontier-rail-spike-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-stock-whip",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-stock-whip",
+      "kit": "frontier-stock-whip-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-stock-whip",
+      "kit": "frontier-stock-whip-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-fence-hook",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-fence-hook",
+      "kit": "frontier-fence-hook-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-fence-hook",
+      "kit": "frontier-fence-hook-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-blacksmith-hammer",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-blacksmith-hammer",
+      "kit": "frontier-blacksmith-hammer-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-blacksmith-hammer",
+      "kit": "frontier-blacksmith-hammer-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-saloon-chair-leg",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-saloon-chair-leg",
+      "kit": "frontier-saloon-chair-leg-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-saloon-chair-leg",
+      "kit": "frontier-saloon-chair-leg-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-trail-machete",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-trail-machete",
+      "kit": "frontier-trail-machete-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-trail-machete",
+      "kit": "frontier-trail-machete-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-brawlers-spurs",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-brawlers-spurs",
+      "kit": "frontier-brawlers-spurs-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-brawlers-spurs",
+      "kit": "frontier-brawlers-spurs-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-prospector-pick",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-prospector-pick",
+      "kit": "frontier-prospector-pick-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-prospector-pick",
+      "kit": "frontier-prospector-pick-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-pipe-tongs",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-pipe-tongs",
+      "kit": "brassworks-pipe-tongs-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-pipe-tongs",
+      "kit": "brassworks-pipe-tongs-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-spring-knuckles",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-spring-knuckles",
+      "kit": "brassworks-spring-knuckles-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-spring-knuckles",
+      "kit": "brassworks-spring-knuckles-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-crown-saw",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-crown-saw",
+      "kit": "brassworks-crown-saw-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-crown-saw",
+      "kit": "brassworks-crown-saw-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-flywheel-cleaver",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-flywheel-cleaver",
+      "kit": "brassworks-flywheel-cleaver-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-flywheel-cleaver",
+      "kit": "brassworks-flywheel-cleaver-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-trip-lever",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-trip-lever",
+      "kit": "brassworks-trip-lever-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-trip-lever",
+      "kit": "brassworks-trip-lever-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-valve-spanner",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-valve-spanner",
+      "kit": "brassworks-valve-spanner-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-valve-spanner",
+      "kit": "brassworks-valve-spanner-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-telescoping-shear",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-telescoping-shear",
+      "kit": "brassworks-telescoping-shear-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-telescoping-shear",
+      "kit": "brassworks-telescoping-shear-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-frost-chisel",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-frost-chisel",
+      "kit": "brassworks-frost-chisel-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-frost-chisel",
+      "kit": "brassworks-frost-chisel-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "hardlight-screen",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "hardlight-screen",
+      "kit": "hardlight-screen-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "hardlight-screen",
+      "kit": "hardlight-screen-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "capacitor-pack",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "capacitor-pack",
+      "kit": "capacitor-pack-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "capacitor-pack",
+      "kit": "capacitor-pack-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "powder-satchel",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "powder-satchel",
+      "kit": "powder-satchel-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "powder-satchel",
+      "kit": "powder-satchel-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "field-dressing",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "field-dressing",
+      "kit": "field-dressing-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "field-dressing",
+      "kit": "field-dressing-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "signal-flare",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "signal-flare",
+      "kit": "signal-flare-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "signal-flare",
+      "kit": "signal-flare-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "stick-of-dynamite",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "stick-of-dynamite",
+      "kit": "stick-of-dynamite-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "stick-of-dynamite",
+      "kit": "stick-of-dynamite-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "steam-vent",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "steam-vent",
+      "kit": "steam-vent-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "steam-vent",
+      "kit": "steam-vent-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "clockwork-sentry",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "clockwork-sentry",
+      "kit": "clockwork-sentry-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "clockwork-sentry",
+      "kit": "clockwork-sentry-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-holo-step",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-holo-step",
+      "kit": "spectrum-holo-step-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-holo-step",
+      "kit": "spectrum-holo-step-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-aegis-node",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-aegis-node",
+      "kit": "spectrum-aegis-node-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-aegis-node",
+      "kit": "spectrum-aegis-node-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-repair-prism",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-repair-prism",
+      "kit": "spectrum-repair-prism-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-repair-prism",
+      "kit": "spectrum-repair-prism-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-cryogenic-curtain",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-cryogenic-curtain",
+      "kit": "spectrum-cryogenic-curtain-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-cryogenic-curtain",
+      "kit": "spectrum-cryogenic-curtain-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-target-uplink",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-target-uplink",
+      "kit": "spectrum-target-uplink-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-target-uplink",
+      "kit": "spectrum-target-uplink-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-echo-cell",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-echo-cell",
+      "kit": "spectrum-echo-cell-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-echo-cell",
+      "kit": "spectrum-echo-cell-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-null-charge",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-null-charge",
+      "kit": "spectrum-null-charge-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-null-charge",
+      "kit": "spectrum-null-charge-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-particle-turret",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-particle-turret",
+      "kit": "spectrum-particle-turret-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "spectrum-particle-turret",
+      "kit": "spectrum-particle-turret-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-gabion-shield",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-gabion-shield",
+      "kit": "blackpowder-gabion-shield-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-gabion-shield",
+      "kit": "blackpowder-gabion-shield-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-surgeons-roll",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-surgeons-roll",
+      "kit": "blackpowder-surgeons-roll-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-surgeons-roll",
+      "kit": "blackpowder-surgeons-roll-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-messengers-spurs",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-messengers-spurs",
+      "kit": "blackpowder-messengers-spurs-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-messengers-spurs",
+      "kit": "blackpowder-messengers-spurs-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-caltrop-pouch",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-caltrop-pouch",
+      "kit": "blackpowder-caltrop-pouch-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-caltrop-pouch",
+      "kit": "blackpowder-caltrop-pouch-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-survey-flag",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-survey-flag",
+      "kit": "blackpowder-survey-flag-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-survey-flag",
+      "kit": "blackpowder-survey-flag-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-cartridge-box",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-cartridge-box",
+      "kit": "blackpowder-cartridge-box-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-cartridge-box",
+      "kit": "blackpowder-cartridge-box-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-grenado-basket",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-grenado-basket",
+      "kit": "blackpowder-grenado-basket-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-grenado-basket",
+      "kit": "blackpowder-grenado-basket-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-picket-swivel",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-picket-swivel",
+      "kit": "blackpowder-picket-swivel-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "blackpowder-picket-swivel",
+      "kit": "blackpowder-picket-swivel-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-saddle-shield",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-saddle-shield",
+      "kit": "frontier-saddle-shield-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-saddle-shield",
+      "kit": "frontier-saddle-shield-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-trail-remedy",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-trail-remedy",
+      "kit": "frontier-trail-remedy-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-trail-remedy",
+      "kit": "frontier-trail-remedy-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-spur-kick",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-spur-kick",
+      "kit": "frontier-spur-kick-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-spur-kick",
+      "kit": "frontier-spur-kick-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-tripwire-spool",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-tripwire-spool",
+      "kit": "frontier-tripwire-spool-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-tripwire-spool",
+      "kit": "frontier-tripwire-spool-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-survey-beacon",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-survey-beacon",
+      "kit": "frontier-survey-beacon-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-survey-beacon",
+      "kit": "frontier-survey-beacon-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-cartridge-belt",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-cartridge-belt",
+      "kit": "frontier-cartridge-belt-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-cartridge-belt",
+      "kit": "frontier-cartridge-belt-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-quarry-charge",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-quarry-charge",
+      "kit": "frontier-quarry-charge-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-quarry-charge",
+      "kit": "frontier-quarry-charge-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-lookout-rig",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-lookout-rig",
+      "kit": "frontier-lookout-rig-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "frontier-lookout-rig",
+      "kit": "frontier-lookout-rig-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-pressure-buckler",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-pressure-buckler",
+      "kit": "brassworks-pressure-buckler-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-pressure-buckler",
+      "kit": "brassworks-pressure-buckler-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-patch-automaton",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-patch-automaton",
+      "kit": "brassworks-patch-automaton-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-patch-automaton",
+      "kit": "brassworks-patch-automaton-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-piston-boots",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-piston-boots",
+      "kit": "brassworks-piston-boots-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-piston-boots",
+      "kit": "brassworks-piston-boots-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-coolant-station",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-coolant-station",
+      "kit": "brassworks-coolant-station-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-coolant-station",
+      "kit": "brassworks-coolant-station-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-survey-oscillator",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-survey-oscillator",
+      "kit": "brassworks-survey-oscillator-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-survey-oscillator",
+      "kit": "brassworks-survey-oscillator-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-universal-feedbox",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-universal-feedbox",
+      "kit": "brassworks-universal-feedbox-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-universal-feedbox",
+      "kit": "brassworks-universal-feedbox-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-boiler-bomb",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-boiler-bomb",
+      "kit": "brassworks-boiler-bomb-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-boiler-bomb",
+      "kit": "brassworks-boiler-bomb-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-crown-turret",
+      "kit": "standard",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-crown-turret",
+      "kit": "brassworks-crown-turret-sustain",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    },
+    {
+      "id": "brassworks-crown-turret",
+      "kit": "brassworks-crown-turret-precision",
+      "equipped": true,
+      "activated": true,
+      "frameRendered": true
+    }
+  ],
+  "shakeAimAndSettings": true,
+  "browserErrors": [],
+  "conditions": "Chromium actual solo engine. A native combat frame and activation for each standard/Workshop configuration. Visual art and sound profiles are checked separately."
+}

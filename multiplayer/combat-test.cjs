@@ -1,4 +1,4 @@
-const assert=require('node:assert/strict'),{performance}=require('node:perf_hooks'),{Match,W,H}=require('./engine.cjs'),catalog=require('./catalog.json');
+const assert=require('node:assert/strict'),{performance}=require('node:perf_hooks'),{Match,W,H}=require('./engine.cjs'),catalog=require('./catalog.json'),arsenal=require('./arsenal-catalog.cjs');
 const players=Array.from({length:4},(_,i)=>({id:'p'+i,name:'Player'+i,connected:true,gear:[0,0,0,0]}));
 const make=(gear=[0,0,0,0])=>{const m=new Match(players.map(p=>({...p,gear:[...gear]})),catalog);m.next=1e9;return m};
 const tick=(m,seconds)=>{for(let n=0;n<Math.ceil(seconds*30);n++)m.step()};
@@ -21,7 +21,7 @@ m=make([10,0,0,0]);p=m.players[0];p.input.aim=0;assert(m.shoot(p,p.gear[0]));ass
 // Reload remains independent across switching, pickups, manual/automatic attempts and pause-sized steps.
 m=make();p=m.players[0];p.gear[0].mag=0;p.gear[0].reserve=3;assert(m.startReload(p,p.gear[0]));assert.equal(m.startReload(p,p.gear[0]),false);p.slot=1;tick(m,1.1);assert.equal(p.gear[0].mag,3);assert.equal(p.gear[0].reserve,0);assert.equal(m.events.filter(e=>e.kind==='reload'&&e.owner===p.id).length,1);
 // Every item is usable, with finite state, and server owns its stats.
-for(let slot=0;slot<4;slot++)for(let index=0;index<catalog[slot].length;index++){
+for(let slot=0;slot<4;slot++)for(let index=0;index<arsenal.defaultSizes[slot];index++){
  const gear=[0,0,0,0];gear[slot]=index;m=make(gear);p=m.players[0];p.slot=slot;p.input.aim=0;p.hp=6;const e=m.spawn(false,0);e.x=p.x+32;e.y=p.y;e.intro=0;e.hp=e.max=100;
  assert(m.shoot(p,p.gear[slot]),p.gear[slot].name);tick(m,.6);assert(!JSON.stringify(m.snapshot()).includes('null,"y"'),p.gear[slot].name);for(const q of m.players)assert(Number.isFinite(q.x)&&Number.isFinite(q.hp));
 }
