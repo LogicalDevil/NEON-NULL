@@ -53,3 +53,158 @@
 #word-blaster #wb-game .notice{font-size:11px!important;line-height:1.3;margin:2px 0;min-height:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #word-blaster #ns-interact{min-height:28px;font-size:11px;padding:4px 8px;bottom:6px}
 @media(pointer:coarse){#word-blaster #wb-game .topline button.btn,#word-blaster #wb-game .controls button.btn,#word-blaster #ns-interact{min-height:38px}}
+
+/* Pilot Network and combat displays share the same signal palette. */
+#word-blaster {
+  --nn-ink:#132d3d;
+  --nn-surface:#f8fcfe;
+  --nn-cyan:#117089;
+  --nn-line:#b7ceda;
+  --nn-reward:#825207;
+  --nn-danger:#9f3138;
+}
+#word-blaster :is(#nsocial-panel,#np-panel) {
+  color:var(--nn-ink);
+  background:linear-gradient(125deg,#dbeaf1 0%,#f4f9fc 46%,#e8f1f6 100%);
+}
+#word-blaster :is(.nsocial-shell,.np-shell)>header {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:12px;
+  padding:clamp(14px,2.2vw,27px);
+  background:#142e40;
+  color:#f2faff;
+  border-bottom:4px solid #65d2e4;
+  border-radius:9px;
+}
+#word-blaster :is(#nsocial-title,#np-title) {
+  font-family:'NN Chakra',sans-serif;
+  font-size:clamp(23px,3.5vw,43px);
+  line-height:1.06;
+}
+#word-blaster .nsocial-shell>header>div:first-child{margin-right:auto}
+#word-blaster .np-kicker{color:#9de4ef;font-size:10px;font-weight:700;letter-spacing:.16em}
+#word-blaster :is(#nsocial-panel,#np-panel) :is(button,summary,input,textarea):focus-visible{
+  outline:3px solid #087694;
+  outline-offset:3px;
+}
+#word-blaster :is(#nsocial-panel,#np-panel) :is(button,summary){min-height:35px}
+#word-blaster #nsocial-tabs{padding:8px 0;border-bottom:1px solid var(--nn-line)}
+#word-blaster #nsocial-tabs .btn-primary,
+#word-blaster #np-panel .btn-primary{background:#12475d;color:#f5fcff;border-color:#12475d}
+#word-blaster .nsocial-layout>:is(aside,main),
+#word-blaster #np-panel section{
+  background:var(--nn-surface);
+  border-color:var(--nn-line);
+  box-shadow:0 6px 20px #1434490d;
+}
+#word-blaster .nsocial-person{gap:8px 10px;padding:12px 4px}
+#word-blaster .nsocial-avatar {
+  display:grid;
+  place-items:center;
+  width:36px;height:36px;
+  border-radius:9px;
+  background:#1b455b;color:#dcf5fc;
+  font:700 14px 'NN Chakra',sans-serif;
+}
+#word-blaster .nsocial-presence:before{content:'○';margin-right:4px}
+#word-blaster .nsocial-presence.online{background:#d7f3f1;color:#105c57}
+#word-blaster .nsocial-presence.online:before{content:'●'}
+#word-blaster .nsocial-presence.ingame{background:#d9eefb;color:#115975}
+#word-blaster .nsocial-presence.ingame:before{content:'◆'}
+#word-blaster .nsocial-more>summary{cursor:pointer;padding:7px;font-size:12px}
+#word-blaster .nsocial-more[open]{padding:0 6px 6px;background:#e7f0f5;border-radius:6px}
+#word-blaster .nsocial-more .btn{margin:2px}
+#word-blaster #nsocial-messages{position:relative;background:#e9f3f8}
+#word-blaster .nsocial-mine{background:#d5edf5;border-color:#a9cddc}
+#word-blaster #nsocial-form{border-top:1px solid var(--nn-line);padding-top:10px}
+#word-blaster #np-name{font:700 clamp(23px,4vw,36px) 'NN Chakra',sans-serif;margin:.15em 0}
+#word-blaster #np-wallet{padding:12px;background:#fff3d9;border-left:4px solid #bc852d;color:#694507;font-weight:700}
+#word-blaster .np-confirmation{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;margin-top:12px;padding:16px;background:#e5f2f8;border:1px solid #a4c6d5;border-radius:9px}
+#word-blaster .np-confirmation .np-avatar{width:64px;height:64px;font-size:30px}
+#word-blaster .np-confirmation h4{margin:0;overflow-wrap:anywhere}
+#word-blaster .np-confirmation p{margin:5px 0;overflow-wrap:anywhere;white-space:pre-wrap}
+#word-blaster .np-empty{padding:14px;background:#eaf3f7;border-radius:8px}
+#word-blaster #wb-game :is(.hud,.ammo-panel,.hotbar-slot){font-variant-numeric:tabular-nums}
+#word-blaster #wb-game .hud{background:#edf7fb;color:var(--nn-ink);border-top:2px solid #3099b0}
+#word-blaster #wb-game .hud .mission-objective{color:#174e65;font-weight:700}
+#word-blaster #wb-game .ammo-panel{color:#134961;background:#ecf7fb}
+#word-blaster #wb-game #wb-hullbar.critical{outline:2px solid var(--nn-danger)}
+#word-blaster #wb-game .notice{color:#18485c;font-weight:700}
+#word-blaster #wb-game .hotbar-slot:is(.selected,[aria-pressed="true"]){outline:2px solid #13809a;outline-offset:-2px}
+@media(max-width:620px){
+  #word-blaster #nsocial-tabs{gap:5px}
+  #word-blaster #nsocial-tabs button{min-height:40px}
+  #word-blaster .np-confirmation{padding:10px}
+  #word-blaster .np-confirmation .np-avatar{width:46px;height:46px;font-size:22px}
+}
+#word-blaster .nsocial-unread{
+  align-self:stretch;
+  text-align:center;
+  color:#16586e;
+  border-top:1px solid #77a9bc;
+  padding:4px;
+  font-size:11px;
+  font-weight:700;
+}
+#word-blaster #nsocial-form{position:sticky;bottom:0;background:var(--nn-surface);z-index:1}
+#word-blaster #np-hosted-game{margin:0 6px 6px 0}
+#word-blaster :is(#wb-menu,#wb-briefing,#wb-results){
+  border-top:4px solid #2995ac;
+}
+#word-blaster :is(#wb-results-title,#wb-shop-title){
+  color:#143c51;
+  font-family:'NN Chakra',sans-serif;
+  font-size:clamp(22px,3.6vw,42px);
+  line-height:1.08;
+}
+#word-blaster #wb-shop-scrap{
+  color:var(--nn-reward);
+  font-variant-numeric:tabular-nums;
+}
+#word-blaster #nc-combat-hud{
+  background:#edf7fb;
+  border-top:2px solid #3099b0;
+  color:var(--nn-ink);
+  gap:7px 14px;
+}
+#word-blaster #nc-reload{accent-color:#13809a}
+#word-blaster #wb-stage canvas{cursor:none}
+@media(pointer:coarse){
+  #word-blaster .nsocial-row-actions .btn,
+  #word-blaster .nsocial-more>summary{min-height:44px}
+}
+.nn-arsenal-controls,.nn-arsenal-kit,.nn-arsenal-preview{display:grid;gap:8px}
+.nn-arsenal-controls,.nn-arsenal-kit{grid-template-columns:repeat(2,minmax(0,1fr))}
+.nn-arsenal-controls label{display:grid;gap:4px;min-width:0}
+.nn-arsenal-kit span{padding:6px 8px;border-left:2px solid #8a6c36;background:#e9eff1;font-size:.82rem}
+.nn-arsenal-preview{align-items:center;grid-template-columns:minmax(120px,240px) minmax(0,1fr);margin:10px 0}
+.nn-arsenal-preview canvas{display:block;width:100%;height:auto;background:linear-gradient(125deg,#eaf0f4,#cddbe0);border:1px solid #a5b8c2;border-radius:8px}
+.nn-arsenal-preview p{margin:0;font-size:.9rem}
+#word-blaster .nn-bench-controls{display:flex;flex-wrap:wrap;gap:5px}
+#word-blaster .nn-bench-controls[hidden]{display:none}
+#word-blaster label:has(>#nc-arsenal){display:flex;gap:8px;align-items:center;margin:6px 0}
+#word-blaster .nc-playing label:has(>#nc-arsenal){display:none}
+@media(max-width:500px){.nn-arsenal-controls,.nn-arsenal-preview{grid-template-columns:1fr}.nn-arsenal-preview canvas{max-width:240px}}
+.nn-armory-filters{display:grid;grid-template-columns:minmax(0,2fr) minmax(130px,1fr);gap:10px;margin:12px 0}
+.nn-armory-filters label{display:grid;gap:4px}
+#word-blaster .nn-weapon-tile{display:grid!important;grid-template-columns:72px minmax(0,1fr);gap:8px!important;text-align:left!important;min-height:64px!important;padding:7px!important}
+.nn-weapon-tile img{object-fit:contain;display:block;max-width:100%}
+.nn-weapon-tile span{overflow-wrap:anywhere}
+.nn-armory-inspect{border:1px solid #aac0cb;border-radius:10px;background:#f1f6f8;padding:14px;margin:12px 0;min-width:0}
+.nn-armory-inspect canvas{display:block;width:min(100%,440px);height:auto;margin:auto;background:radial-gradient(ellipse,#fff,#dbe7ec);border-radius:8px}
+.nn-armory-inspect canvas[hidden]{display:none}
+.nn-armory-inspect h3{margin:10px 0 5px;font-size:20px}
+.nn-armory-inspect p{font-size:13px;line-height:1.5;margin:5px 0}
+.nn-armory-inspect .nn-item-tradeoff{border-left:3px solid #a67832;padding:7px 10px;background:#ede4d3;color:#4e3e27}
+.nn-armory-inspect table{width:100%;border-collapse:collapse;font-size:12px;margin:12px 0}
+.nn-armory-inspect th,.nn-armory-inspect td{text-align:left;padding:6px;border-bottom:1px solid #d0dce1;overflow-wrap:anywhere}
+#word-blaster #wb-run-armory .settings-card{width:min(1080px,96vw)}
+#word-blaster #wb-run-armory #wb-weapons{grid-template-columns:repeat(3,minmax(0,1fr));max-height:280px;overflow:auto;padding:3px}
+#word-blaster #nn-armory-action{width:100%;min-height:42px}
+#word-blaster #wb-run-armory #nn-armory-preview{width:min(100%,400px)!important;height:126px!important;min-height:0!important;max-height:126px!important;object-fit:contain}
+#word-blaster #wb-run-armory #nn-armory-action{position:sticky;bottom:0;z-index:3;box-shadow:0 -5px 12px #f1f6f8}
+.nn-arsenal-preview{grid-template-columns:minmax(180px,360px) minmax(0,1fr)}
+@media(max-width:700px){#word-blaster #wb-run-armory #wb-weapons{grid-template-columns:repeat(2,minmax(0,1fr))}.nn-arsenal-preview{grid-template-columns:1fr}.nn-armory-filters{grid-template-columns:1fr}.nn-armory-inspect{padding:9px}}
+@media(max-width:430px){#word-blaster #wb-run-armory #wb-weapons{grid-template-columns:1fr;max-height:230px}}

@@ -1,0 +1,378 @@
+{
+  "buildSha256": "e4cd442b68e3550dd7816b61e0c98067b135a5f25c538649466c76f5a9e9c821",
+  "version": "6.7",
+  "mode": "local unranked",
+  "inputDelayMs": [
+    0
+  ],
+  "movementChecks": {
+    "slotAcknowledgementMs": 50
+  },
+  "htmlPath": "outputs/neon-null-v6.7.html",
+  "baseline": false,
+  "clients": 4,
+  "durationSeconds": 21.066,
+  "metrics": [
+    {
+      "pilot": 0,
+      "diagnostics": {
+        "connection": "connected",
+        "localPosition": {
+          "x": 718.89,
+          "y": 400
+        },
+        "aimWorld": {
+          "x": 718.89,
+          "y": 273.4375
+        },
+        "predictionHistory": 20,
+        "moveAck": 628,
+        "camera": {
+          "x": 268.89,
+          "y": 146.875,
+          "width": 900,
+          "height": 506.25
+        },
+        "canvasWidth": 960,
+        "canvasHeight": 540,
+        "frames": 600,
+        "frameMsP50": 16.700000000000728,
+        "frameMsP95": 50.099999999998545,
+        "renderMsP50": 1.2999999821186066,
+        "renderMsP95": 4.199999988079071,
+        "snapshots": 320,
+        "snapshotIntervalMsP50": 65.5,
+        "bytesPerSecond": 98470,
+        "events": 326,
+        "domWrites": 509,
+        "inputErrors": 0,
+        "reconnects": 0,
+        "enemySpriteCount": 61,
+        "particles": 20,
+        "ripples": 1,
+        "scars": 3,
+        "rafActive": true,
+        "entities": {
+          "enemies": 27,
+          "shots": 7,
+          "hostile": 11
+        }
+      },
+      "networkKBps": 120.46190024803,
+      "inputHz": 8.924333048514194,
+      "streamChunksHz": 11.630114877053073
+    },
+    {
+      "pilot": 1,
+      "diagnostics": {
+        "connection": "connected",
+        "localPosition": {
+          "x": 612.5,
+          "y": 400
+        },
+        "aimWorld": {
+          "x": 612.5,
+          "y": 273.4375
+        },
+        "predictionHistory": 45,
+        "moveAck": 594,
+        "camera": {
+          "x": 162.5,
+          "y": 146.875,
+          "width": 900,
+          "height": 506.25
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
+        "frames": 600,
+        "frameMsP50": 16.700000000000728,
+        "frameMsP95": 50,
+        "renderMsP50": 1.699999988079071,
+        "renderMsP95": 6.899999976158142,
+        "snapshots": 321,
+        "snapshotIntervalMsP50": 65.2999999821186,
+        "bytesPerSecond": 99648,
+        "events": 328,
+        "domWrites": 526,
+        "inputErrors": 0,
+        "reconnects": 0,
+        "enemySpriteCount": 39,
+        "particles": 40,
+        "ripples": 1,
+        "scars": 3,
+        "rafActive": true,
+        "entities": {
+          "enemies": 27,
+          "shots": 1,
+          "hostile": 11
+        }
+      },
+      "networkKBps": 120.89696333843635,
+      "inputHz": 8.829393335232128,
+      "streamChunksHz": 11.677584733694104
+    },
+    {
+      "pilot": 2,
+      "diagnostics": {
+        "connection": "connected",
+        "localPosition": {
+          "x": 667.5,
+          "y": 400
+        },
+        "aimWorld": {
+          "x": 667.5,
+          "y": 273.4375
+        },
+        "predictionHistory": 17,
+        "moveAck": 631,
+        "camera": {
+          "x": 217.5,
+          "y": 146.875,
+          "width": 900,
+          "height": 506.25
+        },
+        "canvasWidth": 1280,
+        "canvasHeight": 720,
+        "frames": 600,
+        "frameMsP50": 16.700000000000728,
+        "frameMsP95": 50,
+        "renderMsP50": 1.5999999940395355,
+        "renderMsP95": 6.5,
+        "snapshots": 322,
+        "snapshotIntervalMsP50": 64.7999999821186,
+        "bytesPerSecond": 100669,
+        "events": 328,
+        "domWrites": 570,
+        "inputErrors": 0,
+        "reconnects": 0,
+        "enemySpriteCount": 38,
+        "particles": 40,
+        "ripples": 1,
+        "scars": 3,
+        "rafActive": true,
+        "entities": {
+          "enemies": 27,
+          "shots": 1,
+          "hostile": 11
+        }
+      },
+      "networkKBps": 121.30717892575716,
+      "inputHz": 8.924333048514194,
+      "streamChunksHz": 11.962403873540303
+    },
+    {
+      "pilot": 3,
+      "diagnostics": {
+        "connection": "connected",
+        "localPosition": {
+          "x": 722.5,
+          "y": 400
+        },
+        "aimWorld": {
+          "x": 722.5,
+          "y": 273.4375
+        },
+        "predictionHistory": 18,
+        "moveAck": 626,
+        "camera": {
+          "x": 272.5,
+          "y": 146.875,
+          "width": 900,
+          "height": 506.25
+        },
+        "canvasWidth": 960,
+        "canvasHeight": 540,
+        "frames": 600,
+        "frameMsP50": 16.700000000000728,
+        "frameMsP95": 52.599999999998545,
+        "renderMsP50": 1.300000011920929,
+        "renderMsP95": 5.600000023841858,
+        "snapshots": 324,
+        "snapshotIntervalMsP50": 65.30000001192093,
+        "bytesPerSecond": 101703,
+        "events": 328,
+        "domWrites": 432,
+        "inputErrors": 0,
+        "reconnects": 0,
+        "enemySpriteCount": 63,
+        "particles": 11,
+        "ripples": 1,
+        "scars": 3,
+        "rafActive": true,
+        "entities": {
+          "enemies": 30,
+          "shots": 1,
+          "hostile": 11
+        }
+      },
+      "networkKBps": 122.1746627415029,
+      "inputHz": 8.971802905155227,
+      "streamChunksHz": 12.009873730181335
+    }
+  ],
+  "serverMetrics": {
+    "steps": 1250,
+    "stepMs": 530.8097000000342,
+    "maxStepMs": 31.16240000000107,
+    "broadcasts": 336,
+    "totalSnapshotBytes": 2875376,
+    "lastSnapshotBytes": 9593,
+    "maxSnapshotBytes": 11581,
+    "droppedSimulationSeconds": 1.787911633333331,
+    "backpressureDrops": 0,
+    "maxBufferBytes": 9735
+  },
+  "regressions": "passed",
+  "load": {
+    "enemies": {
+      "min": 28,
+      "max": 30,
+      "mean": 29.210526315789473
+    },
+    "shots": {
+      "min": 0,
+      "max": 12,
+      "mean": 3.0526315789473686
+    },
+    "hostile": {
+      "min": 0,
+      "max": 11,
+      "mean": 1.736842105263158
+    },
+    "playersFiring": {
+      "min": 4,
+      "max": 4,
+      "mean": 4
+    }
+  },
+  "heapSamples": {
+    "first": 9190333,
+    "last": 10767150,
+    "min": 7956309,
+    "max": 11905536
+  },
+  "observedGameplay": {
+    "wave": 1,
+    "kills": 9,
+    "bosses": 0
+  },
+  "notes": [
+    "Four independent Chrome headless processes on one machine; this does not measure Internet RTT or Render CPU performance.",
+    "Performance fixture replenishes toward 28 enemies every 800ms, spare reserve ammo and invulnerability; actual sampled load is reported. Control traffic and combat still use real browser/server routes.",
+    "No live Supabase credentials, ranked rewards or persistent user progress are used.",
+    "Baseline changes only handshake version to connect the old renderer to the current server; it does not compare old network/server code."
+  ],
+  "phases": [
+    {
+      "phase": "match-started",
+      "atSeconds": 19.67,
+      "connected": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "phase": "profile-saved",
+      "atSeconds": 43.69,
+      "connected": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "sessions": 4
+    },
+    {
+      "phase": "screenshot-start",
+      "atSeconds": 43.69
+    },
+    {
+      "phase": "screenshot-finished",
+      "atSeconds": 44.38
+    },
+    {
+      "phase": "hotbar-regression-start",
+      "atSeconds": 44.38
+    },
+    {
+      "phase": "hotbar-regression-finished",
+      "atSeconds": 45.27,
+      "connected": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "phase": "offline-start",
+      "atSeconds": 45.27,
+      "connected": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "sessions": 4
+    },
+    {
+      "phase": "offline-disconnected",
+      "atSeconds": 45.36,
+      "connected": [
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "phase": "online-restore-start",
+      "atSeconds": 47.16
+    },
+    {
+      "phase": "online-restored",
+      "atSeconds": 47.16
+    },
+    {
+      "phase": "reconnected",
+      "atSeconds": 47.55,
+      "connected": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "sessions": 4
+    },
+    {
+      "phase": "personal-menu-start",
+      "atSeconds": 48.56
+    },
+    {
+      "phase": "leave-start",
+      "atSeconds": 49.9
+    },
+    {
+      "phase": "pilot-left",
+      "atSeconds": 50.09,
+      "pilot": 0
+    },
+    {
+      "phase": "pilot-left",
+      "atSeconds": 50.38,
+      "pilot": 1
+    },
+    {
+      "phase": "pilot-left",
+      "atSeconds": 50.5,
+      "pilot": 2
+    },
+    {
+      "phase": "pilot-left",
+      "atSeconds": 50.67,
+      "pilot": 3
+    }
+  ]
+}

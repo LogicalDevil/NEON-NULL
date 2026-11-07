@@ -67,6 +67,15 @@ theme = {transpose: 999, wave: 'invalid', rotation: -200};
 state = {active: true, operation: 'archive', enemies: 0, powered: true};
 advance(5); assert.equal(score.stats().operation, 'archive');
 assert.equal(intervals, 1, 'Cosmetics and operation changes must retain one timeline.');
+for (const faction of ['spectrum','blackpowder','frontier','brassworks']) {
+  state = {active:true, operation:faction, enemies:8, boss:true};
+  const before = score.stats().scheduledNotes;
+  advance(3);
+  assert.equal(score.stats().operation, faction);
+  assert.equal(score.stats().mode, 'boss');
+  assert(score.stats().scheduledNotes > before, 'Faction transitions continue the soundtrack.');
+  assert.equal(intervals, 1, 'Faction themes share the same scheduler.');
+}
 state = {active: false, status: 'results'}; advance(4);
 assert.equal(score.stats().mode, 'menu');
 assert.equal(score.stats().lastFault, '');
@@ -76,4 +85,4 @@ score.destroy(); score.destroy(); assert.equal(clears, 2);
 assert.equal(score.stats().running, false); assert.equal(score.stats().voices, 0);
 score.start(); assert.equal(intervals, 2, 'Destroyed controller cannot restart.');
 assert(ac.nodes.filter(n => n.kind !== 'gain').every(n => n.disconnected), 'Every scheduled voice must disconnect.');
-console.log('Immersion audio: single scheduler, layered modes, cosmetic changes, pause, suspension, long gaps, voice cap and cleanup passed.');
+console.log('Immersion audio: single scheduler, layered modes, cosmetic changes, faction themes, pause, suspension, long gaps, voice cap and cleanup passed.');

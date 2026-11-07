@@ -1,0 +1,23 @@
+{
+  "version": "6.7",
+  "durationSeconds": 21.059,
+  "profileSeconds": 20,
+  "frames": 1193,
+  "frameP50": 16.699999999999818,
+  "frameP95": 17.400000000001455,
+  "renderP50": 2.5999999940395355,
+  "renderP95": 4.199999988079071,
+  "load": {
+    "enemyMin": 26,
+    "enemyMax": 30,
+    "shotMax": 3,
+    "particleMax": 93
+  },
+  "heapBytes": 11126722,
+  "regressions": "passed",
+  "notes": [
+    "One headless Chrome process, localhost-free fixture of actual engine; 30 varied enemies maintained, invulnerability and reserve refills used.",
+    "Checks 12 restarts, viewport/world invariance and no animation loop after menu. Not an Internet or long-session endurance benchmark."
+  ],
+  "errors": []
+}

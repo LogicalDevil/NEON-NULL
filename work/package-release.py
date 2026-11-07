@@ -38,8 +38,25 @@ files = list(dict.fromkeys(files))
 files += ['multiplayer/enemy-director.cjs','multiplayer/enemy-director-test.cjs','work/immersion-audio.js','work/test-immersion-audio.cjs','work/test-immersion-art.cjs','work/verify-immersion-art.cjs','work/verify-immersion-integrated.cjs','work/verify-room-environments.cjs','work/verify-living-yard.cjs','outputs/UPDATE-6.1.md','outputs/PERFORMANCE-6.1.md','outputs/immersion-before-results.json','outputs/immersion-after-results.json','outputs/coop-v6.1-results.json','outputs/coop-v6.1-initial-results.json']
 files += ['multiplayer/developer-access.cjs','multiplayer/developer-content.cjs','multiplayer/case-catalog.json','multiplayer/developer-test.cjs','work/developer-studio.js','work/test-developer-art.cjs','work/verify-developer-studio.cjs','outputs/UPDATE-6.2.md','outputs/DEVELOPER-STUDIO-SETUP.md','outputs/developer-studio-results.json']
 files += ['multiplayer/workshop-catalog.cjs','work/social-panel.js','work/test-workshop-expanded.cjs','work/verify-workshop-expanded.cjs','work/verify-workshop-integrated.cjs','work/verify-social-panel.cjs','work/verify-social-integrated.cjs','work/test-social-database.cjs','work/test-social-lobbies.cjs','outputs/supabase-social.sql','outputs/SOCIAL-SETUP.md','outputs/UPDATE-6.3.md','outputs/VALIDATION-6.3.md','outputs/workshop-v6.3-results.json','outputs/singleplayer-v6.3-results.json','outputs/coop-v6.3-results.json','outputs/coop-v6.3-initial-results.json']
-files += ['work/profile-panel.js','work/test-profiles-gifts.cjs','work/verify-profiles-integrated.cjs','outputs/supabase-profiles-gifts.sql','outputs/PROFILES-GIFTS-SETUP.md','outputs/UPDATE-6.4.md','outputs/neon-null-v6.4.html']
-target = root / 'outputs/neon-null-v6.4-bundle.zip'
+files += ['work/profile-panel.js','work/test-profiles-gifts.cjs','work/verify-profiles-integrated.cjs','outputs/supabase-profiles-gifts.sql','outputs/PROFILES-GIFTS-SETUP.md','outputs/UPDATE-6.4.md','outputs/neon-null-v6.5.html']
+files += [
+    'multiplayer/arsenal-catalog.cjs', 'multiplayer/arsenal-test.cjs',
+    'work/apply-arsenal-equipment.py', 'work/arsenal-equipment.js',
+    'work/apply-arsenal-loadout.py', 'work/arsenal-loadout-bridge.js',
+    'work/apply-arsenal-coop.py', 'work/apply_arsenal_art.py', 'work/apply_arsenal_coop_art.py', 'work/arsenal-art.js',
+    'work/integrate-arsenal-relay.py', 'work/arsenal-relay-bridge.js', 'work/arsenal-relay.js',
+    'work/test-arsenal-art.cjs', 'work/verify-arsenal-loadout.cjs', 'work/verify-arsenal-relay.cjs', 'work/verify-arsenal-equipment.cjs',
+    'work/export-arsenal-roster.cjs', 'outputs/neon-null-v6.7.html', 'outputs/neon-null-v6.8.html', 'outputs/UPDATE-6.8.md', 'outputs/ARSENAL-6.8.csv',
+    'work/audit-arsenal-balance.cjs', 'outputs/ARSENAL-BALANCE-6.8.csv', 'outputs/ARSENAL-BALANCE-6.8.json',
+    'outputs/ARSENAL-VALIDATION-6.8.json', 'outputs/PERFORMANCE-6.8.md',
+    'work/verify-arsenal-redesign-art.cjs', 'work/verify-redesign-input.cjs',
+    'work/verify-redesign-sp-performance.cjs', 'work/verify-redesign-coop-performance.cjs',
+    'work/arsenal-redesign-contact.png', 'work/arsenal-redesign-grayscale.png', 'work/arsenal-redesign-spectrum.png',
+    'work/redesign-sp-v67-baseline.json', 'work/redesign-sp-v68-final.json',
+    'work/redesign-coop-v67-baseline.json', 'work/redesign-coop-v68-final.json',
+    'work/redesign-coop-v67-fixed.json', 'work/redesign-coop-v68-fixed.json',
+]
+target = root / 'outputs/neon-null-v6.8-bundle.zip'
 with ZipFile(target, 'w', ZIP_DEFLATED) as archive:
     for name in files:
         archive.write(root / name, name)

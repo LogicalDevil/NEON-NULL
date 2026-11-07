@@ -44,9 +44,17 @@ const waitUntil=async(test,message,timeout=10000)=>{const start=Date.now();while
   const code=(await leader.locator('#nc-code').textContent()).split(' ')[1];
   for(const page of pages.slice(1)){await page.locator('#nc-room').fill(code);await page.locator('#nc-join').click();await page.locator('#nc-ready').waitFor({state:'visible'})}
   assert.equal(service.rooms.get(code).members.length,4,'All four clients must share one room');
-  for(let i=0;i<4;i++){await pages[i].locator('#nc-gear-0').selectOption(String([0,2,9,15][i]),{force:true});await pages[i].locator('#nc-ready').click()}
+  const factionTest=process.env.COOP_ARSENALS==='true';
+  const factionGear=[['spectrum','prism-lance'],['blackpowder','deck-blunderbuss'],['frontier','coach-gun'],['brassworks','gearcaster']];
+  const arsenal=factionTest?require('../multiplayer/arsenal-catalog.cjs'):null;
+  for(let i=0;i<4;i++){
+   if(factionTest)await pages[i].locator('#nc-arsenal').selectOption(factionGear[i][0],{force:true});
+   await pages[i].locator('#nc-gear-0').selectOption(String(factionTest?arsenal.byId(factionGear[i][1]).index:[0,2,9,15][i]),{force:true});
+   await pages[i].locator('#nc-ready').click();
+  }
   await leader.locator('#nc-start').click();await leader.locator('#nc-canvas').waitFor({state:'visible'});
   const room=service.rooms.get(code);assert(room.match,'Match did not start');const match=room.match;
+  if(factionTest)assert.deepEqual(match.players.map(p=>p.gear[0].kind),factionGear.map(item=>item[1]));
   mark('match-started',{connected:match.players.map(p=>p.connected)});
   for(const p of match.players)p.invuln=999;
   for(const page of pages)await page.waitForFunction(()=>typeof window.NeonCoop.diagnostics==='function'||typeof window.__coopBaselineMetrics==='function');

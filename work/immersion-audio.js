@@ -9,7 +9,11 @@
   const THEMES = Object.freeze({
     relay: { roots: [38, 34, 41, 36], melody: [0, 7, 10, 14, 12, 7, 5, 10, 0, 7, 15, 14, 10, 5, 7, 2], wave: 'triangle' },
     archive: { roots: [45, 41, 38, 43], melody: [0, 12, 7, 3, 10, 7, 14, 12, 0, 3, 15, 14, 7, 5, 3, 10], wave: 'sine' },
-    grid: { roots: [36, 39, 34, 41], melody: [0, 0, 7, 10, 12, 7, 0, 3, 10, 12, 15, 7, 14, 10, 7, 3], wave: 'triangle' }
+    grid: { roots: [36, 39, 34, 41], melody: [0, 0, 7, 10, 12, 7, 0, 3, 10, 12, 15, 7, 14, 10, 7, 3], wave: 'triangle' },
+    spectrum: { roots: [42, 38, 45, 40], melody: [0, 12, 14, 17, 19, 12, 9, 14, 0, 7, 19, 21, 19, 14, 9, 7], wave: 'sine', lift: 14, texture: 'glass' },
+    blackpowder: { roots: [38, 36, 34, 33], melody: [0, 0, 7, 3, 5, 3, 2, 0, 0, 7, 10, 7, 5, 3, 2, 0], wave: 'triangle', lift: 10, texture: 'march' },
+    frontier: { roots: [40, 43, 38, 45], melody: [0, 7, 12, 10, 7, 5, 3, 0, 3, 7, 15, 12, 10, 7, 3, 2], wave: 'triangle', lift: 16, texture: 'strings' },
+    brassworks: { roots: [36, 36, 39, 34], melody: [0, 0, 6, 7, 10, 3, 6, 7, 0, 3, 6, 10, 12, 7, 6, 2], wave: 'sine', lift: 13, texture: 'ratchet' }
   });
   const midi = n => 440 * Math.pow(2, (n - 69) / 12);
   function create(options) {
@@ -109,7 +113,7 @@
       if (pos % 8 === 0) {
         tone('atmosphere', root + 12, at, beat * 7.5, 'sine', .032);
         tone('harmony', root + 19, at, beat * 6, 'sine', .026);
-        tone('harmony', root + 22, at, beat * 6, 'triangle', .012);
+        tone('harmony', root + (theme.lift || 22), at, beat * 6, 'triangle', .012);
       }
       if (pos % 2 === 0 || currentMode === 'boss' && pos % 4 === 3) {
         tone('melody', root + 24 + theme.melody[melodic], at, beat * .72, melodyWave, .057);
@@ -118,6 +122,12 @@
       if (pos % 4 === 0) tone('rhythm', 43, at, .14, 'sine', .11, -78);
       if (pos % 8 === 4) hiss(at, .105, .04, 1300);
       if (pos % 2 === 0) hiss(at, .035, .013, 5600);
+      if (currentMode !== 'explore' && currentMode !== 'menu') {
+        if (theme.texture === 'glass' && pos % 8 === 6) tone('rhythm', 79, at, .071, 'sine', .037, -174);
+        if (theme.texture === 'march' && pos % 4 === 2) hiss(at, .105, .036, 750);
+        if (theme.texture === 'strings' && pos % 4 === 3) tone('harmony', root + 19, at, .1, 'triangle', .042, -38);
+        if (theme.texture === 'ratchet' && pos % 4 === 1) tone('rhythm', 57, at, .06, 'triangle', .054, -85);
+      }
       if (currentMode === 'boss' && pos % 2 === 1) {
         const motif = [0, 3, 7, 10, 12, 10, 7, 2][Math.floor(pos / 2)];
         tone('boss', root + 24 + motif, at, beat * .64, 'triangle', .062);
@@ -135,13 +145,13 @@
         const s = getState() || {}, cosmetic = getTheme() || {};
         if (wasSuspended || now - lastNow > .5 || nextAt < now - .18) nextAt = now + .035;
         wasSuspended = false; lastNow = now;
-        const nextOperation = ['archive', 'grid'].includes(s.operation) ? s.operation : 'relay';
+        const nextOperation = Object.hasOwn(THEMES, s.operation) ? s.operation : 'relay';
         // Operation and cosmetic changes retain the shared beat and use the next phrase.
         if (step % 8 === 0) {
           operation = nextOperation;
           transpose = clamp(cosmetic.transpose, -7, 7);
           rotation = Math.floor(clamp(cosmetic.rotation, 0, 15));
-          melodyWave = ['sine', 'triangle'].includes(cosmetic.wave) ? cosmetic.wave : THEMES[operation].wave;
+          melodyWave = THEMES[operation].texture ? THEMES[operation].wave : ['sine', 'triangle'].includes(cosmetic.wave) ? cosmetic.wave : THEMES[operation].wave;
         }
         if (s.status !== lastStatus) {
           if (s.status !== 'victory' && s.status !== 'results' && s.status !== 'extraction') victoryPlayed = false;

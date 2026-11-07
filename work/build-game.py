@@ -2,14 +2,24 @@ from pathlib import Path
 import shutil
 import subprocess
 import base64
+import runpy
 
 root = Path(__file__).resolve().parent.parent
 out = root / 'outputs/neon-null.html'
 source = (root / 'work/neon-null.html').read_text(encoding='utf-8')
-for filename, marker in [('../multiplayer/workshop-catalog.cjs','WORKSHOP_CATALOG'),('social-panel.js','SOCIAL'),('profile-panel.js','PROFILES'),('../multiplayer/developer-content.cjs','DEV_CONTENT'),('developer-studio.js','DEV_STUDIO'),('../multiplayer/enemy-director.cjs','DIRECTOR'),('immersion-audio.js','IMMERSION_AUDIO'),('cosmetic-models.js','MODELS'),('cosmetic-studio.js','STUDIO'),('enemy-models.js','ENEMY_MODELS'),('interface-controls.js','INTERFACE'),('combat-effects.js','COMBAT_FX'),('expansion-runtime.js','RUNTIME'),('combat-expansion.js','COMBAT_EXPANSION'),('sector-run.js','SECTOR'),('signal-track.js','TRACK')]:
+source = runpy.run_path(str(root / 'work/apply-arsenal-equipment.py'))['apply'](source)
+source = runpy.run_path(str(root / 'work/integrate-arsenal-relay.py'))['integrate'](source, root / 'work')
+for script in ['apply_arsenal_art.py', 'apply-arsenal-loadout.py']:
+    source = runpy.run_path(str(root / 'work' / script))['apply'](source)
+for filename, marker in [('../multiplayer/arsenal-catalog.cjs','ARSENAL_CATALOG'),('arsenal-art.js','ARSENAL_ART'),('arsenal-relay.js','ARSENAL_RELAY'),('../multiplayer/workshop-catalog.cjs','WORKSHOP_CATALOG'),('social-panel.js','SOCIAL'),('profile-panel.js','PROFILES'),('../multiplayer/developer-content.cjs','DEV_CONTENT'),('developer-studio.js','DEV_STUDIO'),('../multiplayer/enemy-director.cjs','DIRECTOR'),('immersion-audio.js','IMMERSION_AUDIO'),('cosmetic-models.js','MODELS'),('cosmetic-studio.js','STUDIO'),('enemy-models.js','ENEMY_MODELS'),('interface-controls.js','INTERFACE'),('combat-effects.js','COMBAT_FX'),('expansion-runtime.js','RUNTIME'),('combat-expansion.js','COMBAT_EXPANSION'),('sector-run.js','SECTOR'),('signal-track.js','TRACK')]:
     start_marker = '<!-- NN_' + marker + '_START -->'
     end_marker = '<!-- NN_' + marker + '_END -->'
-    block = start_marker + '\n<script>\n' + (root / 'work' / filename).read_text(encoding='utf-8') + '\n</script>\n' + end_marker
+    script = (root / 'work' / filename).read_text(encoding='utf-8')
+    if filename == 'combat-expansion.js':
+        script = runpy.run_path(str(root / 'work/apply-arsenal-loadout.py'))['apply_workshop'](script)
+    if filename == 'sector-run.js':
+        script = script.replace('projectileHit,resolveMovement,interact', 'projectileHit,resolveMovement,blocked,interact')
+    block = start_marker + '\n<script>\n' + script + '\n</script>\n' + end_marker
     if start_marker in source:
         start = source.index(start_marker)
         end = source.index(end_marker, start) + len(end_marker)
@@ -42,15 +52,19 @@ else:
 for filename, comment in [('account-save.js','/* NEON//NULL save adapter.'),('multiplayer-client.js','/* Network renderer')]:
     start = source.index(comment, source.rfind('</template>'))
     end = source.index('</script>',start)
-    source = source[:start] + (root / 'work' / filename).read_text(encoding='utf-8') + '\n' + source[end:]
-(root / 'work/neon-null.html').write_text(source, encoding='utf-8')
+    script = (root / 'work' / filename).read_text(encoding='utf-8')
+    if filename == 'multiplayer-client.js':
+        script = runpy.run_path(str(root / 'work/apply-arsenal-coop.py'))['apply'](script)
+        script = runpy.run_path(str(root / 'work/apply_arsenal_coop_art.py'))['apply'](script)
+    source = source[:start] + script + '\n' + source[end:]
 subprocess.run(['node', str(root / 'multiplayer/build-catalog.cjs')], check=True)
 subprocess.run(['node', str(root / 'multiplayer/build-skin-manifest.cjs')], check=True)
+subprocess.run(['node', str(root / 'work/export-arsenal-roster.cjs')], check=True)
 baseline = '<style>body{font:14px/1.45 system-ui,"Segoe UI",Arial,sans-serif}button,input,select{font:inherit}.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:7px 11px;border:1px solid #30393b;border-radius:4px;background:#fff;color:#111;cursor:pointer;font-size:13px;text-decoration:none}.btn-primary{background:#20292d;color:#fff}.btn:disabled{opacity:.5;cursor:default}.form-control{display:block;width:100%;min-height:36px;padding:7px 9px;border:1px solid #7e898b;border-radius:4px;background:#fff;color:#111}.text-small{font-size:12px}input[type=checkbox]{accent-color:#30393b}</style>'
 source = baseline + source
-html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>NEON//NULL v6.4</title><style>:root{color-scheme:light;background:#f2f2f2}html,body{margin:0;min-height:100%;background:#f2f2f2}body{box-sizing:border-box;padding:0}</style></head><body>' + source + '</body></html>'
+html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>NEON//NULL v6.8</title><style>:root{color-scheme:light;background:#f2f2f2}html,body{margin:0;min-height:100%;background:#f2f2f2}body{box-sizing:border-box;padding:0}</style></head><body>' + source + '</body></html>'
 out.write_text(html, encoding='utf-8')
-shutil.copyfile(out, root / 'outputs/neon-null-v6.4.html')
+shutil.copyfile(out, root / 'outputs/neon-null-v6.8.html')
 shutil.copyfile(out, root / 'index.html')
 shutil.copyfile(out, root / 'outputs/index.html')
 print('Built', out.stat().st_size, 'bytes')
