@@ -5,15 +5,18 @@ const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),
 const {Match,reward}=require('./engine.cjs');
 
 const modifications=require('./modifications.cjs');
+const factionEnemies=require('./faction-enemy-catalog.cjs'),factionWireIds=new Map(factionEnemies.types.map((d,i)=>[d.id,i]));
+function packFactionEnemy(e){const variant=factionWireIds.get(e.factionEnemyId),known=Number.isInteger(variant),p=e.factionPose,pose=p&&(p.factionLink||p.factionLinks?.length)?{factionLink:p.factionLink||undefined,factionLinks:p.factionLinks?.length?p.factionLinks:undefined}:null;return[e.id,e.kind,e.x,e.y,e.hp,e.max,e.r,e.boss,e.theme,e.state,e.aim,e.warning,e.intro,e.shielded,e.hurt,e.type,known?null:e.name,known?null:e.faction,e.stagger,e.staggerMax,e.exposed,e.marked,e.freight,e.freightType,known?variant:null,pose]}
+
 
 const developerAccess=require('./developer-access.cjs');
 
 const cosmeticManifest=require('./skin-manifest.json'),operatorIds=new Set(cosmeticManifest.operators);
 
-function validatedCosmetics(raw){const owned=new Set(['mono',...(Array.isArray(raw?.owned)?raw.owned.filter(id=>operatorIds.has(id)):[])]),ownedSkins=new Set(Array.isArray(raw?.ownedSkins)?raw.ownedSkins:[]),weaponSkins={};if(raw?.equippedSkins&&typeof raw.equippedSkins==='object'&&!Array.isArray(raw.equippedSkins))for(const [index,id]of Object.entries(raw.equippedSkins)){const n=Number(index);if(Number.isInteger(n)&&n>=0&&n<26&&ownedSkins.has(id)&&Object.prototype.hasOwnProperty.call(cosmeticManifest.skins,id)&&cosmeticManifest.skins[id]===n)weaponSkins[String(n)]=id}return {appearance:operatorIds.has(raw?.selected)&&owned.has(raw.selected)?raw.selected:'mono',weaponSkins}}
+function validatedCosmetics(raw){const owned=new Set(['mono',...(Array.isArray(raw?.owned)?raw.owned.filter(id=>operatorIds.has(id)):[])]),ownedSkins=new Set(Array.isArray(raw?.ownedSkins)?raw.ownedSkins:[]),weaponSkins={};if(raw?.equippedSkins&&typeof raw.equippedSkins==='object'&&!Array.isArray(raw.equippedSkins))for(const [index,id]of Object.entries(raw.equippedSkins)){const n=Number(index);if(Number.isInteger(n)&&n>=0&&ownedSkins.has(id)&&Object.prototype.hasOwnProperty.call(cosmeticManifest.skins,id)&&cosmeticManifest.skins[id]===n)weaponSkins[String(n)]=id}return {appearance:operatorIds.has(raw?.selected)&&owned.has(raw.selected)?raw.selected:'mono',weaponSkins}}
 
 const arsenal=require('./arsenal-catalog.cjs');
-const VERSION='5.2',root=path.resolve(__dirname,'..'),catalog=JSON.parse(fs.readFileSync(path.join(__dirname,'catalog.json'),'utf8'));
+const VERSION='7.3',root=path.resolve(__dirname,'..'),catalog=JSON.parse(fs.readFileSync(path.join(__dirname,'catalog.json'),'utf8'));
 
 function createGameServer(options={}){
 
@@ -21,7 +24,7 @@ function createGameServer(options={}){
 
  let publicKey='',publicURL='';if(typeof key==='string'){if(key.startsWith('sb_publishable_'))publicKey=key;else try{if(JSON.parse(Buffer.from(key.split('.')[1],'base64url').toString()).role==='anon')publicKey=key}catch{}}try{const candidate=new URL(url);if(candidate.protocol==='https:'&&!candidate.username&&!candidate.password&&candidate.pathname==='/'&&!candidate.search&&!candidate.hash)publicURL=candidate.origin}catch{}
 
- const dev=options.dev??(process.env.DEV_GUESTS==='true'),gameRoot=options.gameRoot||root,compactSnapshots=options.compactSnapshots!==false,rooms=new Map(),sessions=new Map(),limits=new Map();
+ const dev=options.dev??(process.env.DEV_GUESTS==='true'),gameRoot=options.gameRoot||root,compactSnapshots=options.compactSnapshots!==false,rooms=new Map(),sessions=new Map(),credentials=new Map(),limits=new Map();
 
  const developers=developerAccess.create(()=>typeof options.developerUserIds==='function'?options.developerUserIds():options.developerUserIds??process.env.DEVELOPER_USER_IDS);
 
@@ -43,13 +46,13 @@ function createGameServer(options={}){
 
  function writeStream(s,message){const stream=s.stream;if(!stream||stream.destroyed||stream.writableEnded)return;if(s.blocked){s.pending=message;metrics.backpressureDrops++;return}metrics.maxBufferBytes=Math.max(metrics.maxBufferBytes,stream.writableLength);if(stream.writableLength>131072){stream.destroy();return}if(!stream.write(message)){s.blocked=true;s.blockedSince=Date.now()}}
 
- function emit(r,force=false){const lobby=roster(r),signature=r.state==='playing'?null:JSON.stringify([lobby.state,Math.ceil(lobby.countdown),lobby.leader,lobby.players,lobby.ranked]);if(!force&&signature&&signature===r.lastSignature)return;r.lastSignature=signature;const match=r.match?.snapshot()||null;if(match){if(compactSnapshots){for(const player of match.players)player.gear=player.gear.map(({mag,reserve,reload,cooldown,cooldownMax,modId,heat,charge})=>({mag,reserve,reload,cooldown,cooldownMax,modId,heat,charge}));match.shots=match.shots.map(s=>[s.id,s.x,s.y,s.owner,s.skinId,s.kind,s.angle]);match.hostile=match.hostile.map(s=>[s.id,s.x,s.y,s.vx,s.vy]);match.enemies=match.enemies.map(e=>[e.id,e.kind,e.x,e.y,e.hp,e.max,e.r,e.boss,e.theme,e.state,e.aim,e.warning,e.intro,e.shielded,e.hurt,e.type,e.name,e.faction,e.stagger,e.staggerMax,e.exposed,e.marked])}if(!force)match.events=match.events.filter(event=>event.id>(r.eventCursor||0));r.eventCursor=r.match.eventId}const sequence=(r.sequence||0)+1;r.sequence=sequence;const message='data: '+JSON.stringify({sequence,sentAt:Date.now(),packed:compactSnapshots?1:0,lobby,match})+'\n\n';metrics.lastSnapshotBytes=Buffer.byteLength(message);metrics.totalSnapshotBytes+=metrics.lastSnapshotBytes;metrics.maxSnapshotBytes=Math.max(metrics.maxSnapshotBytes,metrics.lastSnapshotBytes);metrics.broadcasts++;for(const id of r.members){const s=sessions.get(id);if(s)writeStream(s,message)}}
+ function emit(r,force=false){const lobby=roster(r),signature=r.state==='playing'?null:JSON.stringify([lobby.state,Math.ceil(lobby.countdown),lobby.leader,lobby.players,lobby.ranked]);if(!force&&signature&&signature===r.lastSignature)return;r.lastSignature=signature;const match=r.match?.snapshot()||null;if(match){if(compactSnapshots){for(const player of match.players)player.gear=player.gear.map(({mag,reserve,reload,cooldown,cooldownMax,modId,evolutionId,heat,charge,ammoRevision})=>({mag,reserve,reload,cooldown,cooldownMax,modId,evolutionId,heat,charge,ammoRevision}));match.shots=match.shots.map(s=>[s.id,s.x,s.y,s.owner,s.skinId,s.kind,s.angle,s.vx,s.vy,s.born,s.life,s.motionEpoch,s.attackId,s.useId,s.firstForUse,s.part]);match.hostile=match.hostile.map(s=>[s.id,s.x,s.y,s.vx,s.vy,factionWireIds.get(s.factionEnemyId),s.factionEnemyId?null:s.source]);match.enemies=match.enemies.map(packFactionEnemy)}if(!force)match.events=match.events.filter(event=>event.id>(r.eventCursor||0));r.eventCursor=r.match.eventId}const sequence=(r.sequence||0)+1;r.sequence=sequence;const message='data: '+JSON.stringify({sequence,sentAt:Date.now(),packed:compactSnapshots?1:0,lobby,match})+'\n\n';metrics.lastSnapshotBytes=Buffer.byteLength(message);metrics.totalSnapshotBytes+=metrics.lastSnapshotBytes;metrics.maxSnapshotBytes=Math.max(metrics.maxSnapshotBytes,metrics.lastSnapshotBytes);metrics.broadcasts++;for(const id of r.members){const s=sessions.get(id);if(s)writeStream(s,message)}}
 
  function transferLeader(r){const leader=sessions.get(r.leader);if(!r.members.includes(r.leader)||!leader?.stream)r.leader=r.members.find(id=>sessions.get(id)?.stream)||r.members[0]}
 
  function leave(s){const r=roomOf(s);s.ready=false;s.room=null;if(!r)return;r.members=r.members.filter(id=>id!==s.id);if(r.match){const p=r.match.players.find(p=>p.id===s.id);if(p){p.connected=false;p.hp=0;p.input={}}}if(!r.members.length){rooms.delete(r.code);return}transferLeader(r);if(r.state==='countdown'){r.state='lobby';r.countdown=0}emit(r)}
 
- function authenticate(req){const id=(req.headers.authorization||'').replace(/^Bearer /,'');return sessions.get(id)}
+ function authenticate(req){const id=(req.headers.authorization||'').replace(/^Bearer /,'');return credentials.get(id)}
 
  async function body(req){let buffer='',size=0;for await(const chunk of req){size+=chunk.length;if(size>8192)throw Error('Request too large');buffer+=chunk}const data=JSON.parse(buffer||'{}');if(!data||typeof data!=='object'||Array.isArray(data))throw Error('Expected an object');return data}
 
@@ -77,6 +80,11 @@ function createGameServer(options={}){
   if(pathname==='/api/public-config'&&req.method==='GET')return send(res,200,{url:publicKey?publicURL:'',key:publicURL?publicKey:'',configured:!!(publicURL&&publicKey)});
 
   if(req.method==='GET'&&(pathname==='/'||pathname==='/index.html'||pathname==='/neon-null.html')){const entry=fs.existsSync(path.join(gameRoot,'index.html'))?path.join(gameRoot,'index.html'):path.join(gameRoot,'outputs/neon-null.html');if(!fs.existsSync(entry))return send(res,503,{error:'Game file missing — deploy index.html or outputs/neon-null.html'});res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'});const file=fs.createReadStream(entry);file.on('error',()=>res.destroy());file.pipe(res);return}
+
+  if(req.method==='GET'&&/^\/archive\/neon-null-v\d+\.\d+\.html$/.test(pathname)){
+   const file=path.join(gameRoot,'archive',path.basename(pathname));if(!fs.existsSync(file))return send(res,404,{error:'Archive build not found'});
+   res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'});const source=fs.createReadStream(file);source.on('error',()=>res.destroy());source.pipe(res);return;
+  }
 
   if(!pathname.startsWith('/api/'))return send(res,404,{error:'Not found'});
 
@@ -139,13 +147,13 @@ function createGameServer(options={}){
 
    if(pathname==='/api/connect'&&req.method==='POST'){
 
-    const b=await body(req);if(b.version!==VERSION)return send(res,409,{error:'Game versions differ — refresh your game'});if(sessions.size>=200)return send(res,503,{error:'Server full'});
+    const b=await body(req);if(b.version!==VERSION)return send(res,409,{error:'Multiplayer updated to '+VERSION+' — refresh your game and use the same server URL'});if(sessions.size>=200)return send(res,503,{error:'Server full'});
 
     const ident=dev?{user:null,name:String(b.name||'Guest').replace(/[^A-Za-z0-9_]/g,'').slice(0,20)||'Guest',appearance:'mono',weaponSkins:{}}:await identity(String(b.accessToken||''));
 
-    if(ident.user)for(const old of sessions.values())if(old.user===ident.user){if(old.stream)old.stream.destroy();leave(old);sessions.delete(old.id)}
+    if(ident.user)for(const old of sessions.values())if(old.user===ident.user){if(old.stream)old.stream.destroy();leave(old);credentials.delete(old.token);sessions.delete(old.id)}
 
-    const id=randomBytes(32).toString('hex'),s={...ident,id,stream:null,room:null,ready:false,role:'vanguard',gear:[0,0,0,0],seen:now,seq:-1};sessions.set(id,s);return send(res,200,{id,name:s.name,dev,version:VERSION,catalog})
+    const token=randomBytes(32).toString('hex'),id=randomBytes(12).toString('hex'),s={...ident,id,stream:null,room:null,ready:false,role:'vanguard',gear:[0,0,0,0],seen:now,seq:-1};Object.defineProperty(s,'token',{value:token});sessions.set(id,s);credentials.set(token,s);return send(res,200,{id:token,playerId:id,name:s.name,dev,version:VERSION,catalog})
 
    }
 
@@ -179,7 +187,7 @@ function createGameServer(options={}){
 
    else if(pathname==='/api/start'){if(r.leader!==s.id)throw Error('Only the leader can start');if(r.state!=='lobby'||r.members.length<2||!r.members.every(id=>sessions.get(id).ready&&sessions.get(id).stream))throw Error('Need 2–4 connected and ready players');r.state='countdown';r.countdown=3;emit(r)}
 
-   else if(pathname==='/api/input'){if(r.state!=='playing'||!s.stream)throw Error('Match is not active');if(b.matchId!==undefined&&b.matchId!==r.match.matchId)throw Error('Input belongs to a different match');r.match.input(s.id,b)}
+   else if(pathname==='/api/input'){if(r.state!=='playing'||!s.stream)throw Error('Match is not active');if(b.matchId!==undefined&&b.matchId!==r.match.matchId)throw Error('Input belongs to a different match');r.match.input(s.id,b);const player=r.match.players.find(p=>p.id===s.id);return send(res,200,{ok:true,inputAck:player.seq,receivedUseId:player.receivedUseId,serverTime:r.match.time,receivedAt:player.receivedInputAt})}
 
    else if(pathname==='/api/rematch'){if(r.leader!==s.id||r.state!=='results')throw Error('Leader can return the party to lobby after results');r.match=null;r.state='lobby';for(const id of r.members)sessions.get(id).ready=false;emit(r)}
 
@@ -207,7 +215,7 @@ function createGameServer(options={}){
 
   if(nowClock>=nextBroadcast){nextBroadcast+=(Math.floor((nowClock-nextBroadcast)/(1000/15))+1)*(1000/15);for(const r of rooms.values())emit(r)}
 
-  if(nowClock>=nextCleanup){nextCleanup=nowClock+1000;const now=Date.now();developers.sweep();for(const active of sessions.values())if(active.developerUntil){const outfit=developers.outfit(active.user);if(!outfit){active.developerUntil=0;active.appearance=active.normalAppearance||'mono';active.weaponSkins={...(active.normalWeaponSkins||{})};const room=roomOf(active),p=room?.match?.players.find(p=>p.id===active.id);if(p){p.appearance=active.appearance;p.weaponSkins=active.weaponSkins;for(const g of p.gear)g.skinId=active.weaponSkins[String(g.weaponIndex)]||null}if(room)emit(room,true)}else active.developerUntil=outfit.expires}for(const s of sessions.values()){if(s.stream){if(s.blocked&&now-s.blockedSince>5000)s.stream.destroy();else if(!s.blocked&&now-(s.lastHeartbeat||0)>5000){s.lastHeartbeat=now;writeStream(s,': heartbeat\n\n')}}if((!s.stream&&now-s.seen>30000)||(s.disconnected&&now-s.disconnected>20000)){leave(s);sessions.delete(s.id)}}for(const [ip,l]of limits)if(now-l.at>60000)limits.delete(ip)}
+  if(nowClock>=nextCleanup){nextCleanup=nowClock+1000;const now=Date.now();developers.sweep();for(const active of sessions.values())if(active.developerUntil){const outfit=developers.outfit(active.user);if(!outfit){active.developerUntil=0;active.appearance=active.normalAppearance||'mono';active.weaponSkins={...(active.normalWeaponSkins||{})};const room=roomOf(active),p=room?.match?.players.find(p=>p.id===active.id);if(p){p.appearance=active.appearance;p.weaponSkins=active.weaponSkins;for(const g of p.gear)g.skinId=active.weaponSkins[String(g.weaponIndex)]||null}if(room)emit(room,true)}else active.developerUntil=outfit.expires}for(const s of sessions.values()){if(s.stream){if(s.blocked&&now-s.blockedSince>5000)s.stream.destroy();else if(!s.blocked&&now-(s.lastHeartbeat||0)>5000){s.lastHeartbeat=now;writeStream(s,': heartbeat\n\n')}}if((!s.stream&&now-s.seen>30000)||(s.disconnected&&now-s.disconnected>20000)){leave(s);credentials.delete(s.token);sessions.delete(s.id)}}for(const [ip,l]of limits)if(now-l.at>60000)limits.delete(ip)}
 
   if(nowClock>=nextFlush){nextFlush=nowClock+30000;flush()}
 
@@ -221,5 +229,5 @@ function createGameServer(options={}){
 
 if(require.main===module){const dev=process.env.DEV_GUESTS==='true';if(!dev&&(!process.env.SUPABASE_URL||!process.env.SUPABASE_PUBLISHABLE_KEY)){console.error('Set SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY, or DEV_GUESTS=true for localhost testing');process.exit(1)}const {server}=createGameServer();server.listen(Number(process.env.PORT)||8787,dev?'127.0.0.1':'0.0.0.0',()=>console.log('NEON//NULL co-op server listening on port '+(process.env.PORT||8787)+(dev?' (local unranked guests)':'')))}
 
-module.exports={createGameServer};
+module.exports={createGameServer,VERSION,packFactionEnemy};
 

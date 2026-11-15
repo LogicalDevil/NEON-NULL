@@ -32,7 +32,9 @@ for (const faction of arsenal.factions.slice(1)) {
   assert.deepEqual(arsenal.groups.map(items=>items.filter(item=>item.faction===faction.id).length),[10,10,10,10]);
 }
 assert.equal(arsenal.skinIndex(1,0),16);
-assert.equal(arsenal.skinIndex(0,16),-1);
+assert.equal(arsenal.skinIndex(0,16),1016);
+for(let slot=0;slot<4;slot++)for(let index=arsenal.defaultSizes[slot];index<arsenal.defaultSizes[slot]+arsenal.groups[slot].length;index++)assert.deepEqual(arsenal.equipmentForSkin(arsenal.skinIndex(slot,index)),{slot,index});
+assert.equal(arsenal.equipmentForSkin(5000),null);
 for (const item of arsenal.groups.flat()) {
   assert.equal(catalog[item.slot][item.index].id,item.id);
   const choices = workshop.definitions.filter(mod=>mod.kinds.includes(item.kind));

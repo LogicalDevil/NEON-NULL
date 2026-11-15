@@ -1,6 +1,8 @@
 'use strict';
 const assert=require('node:assert/strict'),{Match}=require('./engine.cjs'),catalog=require('./catalog.json'),manifest=require('./skin-manifest.json');
-assert.equal(manifest.operators.length,70);assert.equal(Object.keys(manifest.skins).length,70);
+assert.equal(manifest.operators.length,140);assert.equal(Object.keys(manifest.skins).length,160);
+const factions=require('./faction-skin-catalog.cjs'),arsenal=require('./arsenal-catalog.cjs');
+for(const skin of factions.items){assert.equal(manifest.skins[skin.id],skin.weaponIndex);assert.deepEqual(arsenal.equipmentForSkin(skin.weaponIndex),{slot:skin.slot,index:skin.index});}
 const players=[{id:'one',name:'One',appearance:'exp-12',connected:true,gear:[0,9,0,0],weaponSkins:{'0':'skin-pulse-ghostline','25':'skin-exp-25'}},{id:'two',name:'Two',appearance:'mono',connected:true,gear:[0,0,0,0],weaponSkins:{}}];
 const m=new Match(players,catalog);m.next=1e9;
 let player=m.snapshot().players[0];assert.equal(player.appearance,'exp-12');assert.equal(player.activeSkin,'skin-pulse-ghostline');assert.equal(player.weaponIndex,0);assert.equal(player.firing,false);

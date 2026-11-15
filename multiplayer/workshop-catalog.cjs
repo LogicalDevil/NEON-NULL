@@ -80,7 +80,7 @@ for (const item of arsenal?.groups.flat()||[]) {
  }
 }
 function compatible(id,item){return definitions.find(m=>m.id===id&&m.kinds.includes(item?.kind))||null}
-function effective(item,id,mode='server'){const m=compatible(id,item),view={...item};if(!m)return view;view.modId=view.nnMod=m.id;
+function effective(item,id,mode='server'){const m=compatible(id,item),view={...item};if(!m||item.modId===m.id||item.nnMod===m.id)return view;view.modId=view.nnMod=m.id;
  for(const[field,factor]of Object.entries(m.fields)){const key=mode==='browser'&&aliases[field]&&Number.isFinite(item[aliases[field]])?aliases[field]:field;if(Number.isFinite(item[key]))view[key]=item[key]*factor}
  for(const[field,amount]of Object.entries(m.add||{}))if(Number.isFinite(item[field]))view[field]=item[field]+amount;
  if(m.integerPower?.includes(item.kind))view.power=Math.max(1,Math.floor(view.power));if(m.spreadFactor)view.spreadWidth=(item.spreadWidth||.12)*m.spreadFactor;

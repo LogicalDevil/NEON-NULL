@@ -1,6 +1,7 @@
 /* Canonical faction equipment and shared combat geometry. Default catalog indices are preserved. */
 (function (root) {
   'use strict';
+  const balance = typeof module === 'object' && module.exports ? require('./combat-balance.cjs') : root.NeonCombatBalance;
   const defaultSizes = [16, 10, 10, 10];
   const groups = [[], [], [], []];
   const factions = [{
@@ -270,7 +271,7 @@
       if(item.cost>0)item.cost=Math.round(Math.max(72,Math.min(185,70+nominal/cycle*6+(item.penetration?14:0)))/5)*5;
     }
     item.desc=item.signature+'. '+item.weakness;
-    list[index]=Object.freeze(item);
+    list[index]=Object.freeze(balance.apply(item, item.slot));
   }
   function patternShots(item, serial, emit) {
     const count = Math.min(7,item.spread||1);
@@ -292,8 +293,15 @@
   function byId(id) { return catalog.get(id) || null; }
   function factionById(id) { return lookup.get(id) || null; }
   function skinIndex(slot, index) {
-    if (slot < 0 || slot > 1 || index < 0 || index >= defaultSizes[slot]) return -1;
-    return slot === 0 ? index : defaultSizes[0] + index;
+    if(!Number.isInteger(slot)||!Number.isInteger(index)||slot<0||slot>3||index<0)return -1;
+    if(index<defaultSizes[slot])return slot<2?(slot===0?index:defaultSizes[0]+index):1000+slot*1000+index;
+    return index<defaultSizes[slot]+groups[slot].length?1000+slot*1000+index:-1;
+  }
+  function equipmentForSkin(key) {
+    if(!Number.isInteger(key)||key<0)return null;
+    if(key<26)return {slot:key<16?0:1,index:key<16?key:key-16};
+    const slot=Math.floor(key/1000)-1,index=key%1000;
+    return skinIndex(slot,index)===key?{slot,index}:null;
   }
   function rayContacts(x, y, angle, range, targets, eligible, radius = e => e.r) {
     const dx = Math.cos(angle), dy = Math.sin(angle), result = [];
@@ -327,7 +335,7 @@
     const angle=Math.atan2(y-field.y,x-field.x)-field.angle;
     return Math.abs(Math.atan2(Math.sin(angle),Math.cos(angle)))<=field.arc/2;
   }
-  const api = {groups, factions, defaultSizes, byId, factionById, skinIndex, rayContacts, boundary, segmentHits, patternShots, steerShot, barrierContact};
+  const api = {groups, factions, defaultSizes, byId, factionById, skinIndex, equipmentForSkin, rayContacts, boundary, segmentHits, patternShots, steerShot, barrierContact};
   if (typeof module === 'object' && module.exports) module.exports = api;
   else root.NeonArsenal = api;
 })(typeof window === 'object' ? window : globalThis);
